@@ -90,6 +90,13 @@
                 </a>
             </li>
 
+            <li class="nav-item {{ Nav::isRoute('message') }}">
+                <a class="nav-link" href="{{ route('message') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Message') }}</span>
+                </a>
+            </li>
+
             {{-- <!-- Nav Item - About -->
             <li class="nav-item {{ Nav::isRoute('about') }}">
                 <a class="nav-link" href="{{ route('about') }}">

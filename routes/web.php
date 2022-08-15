@@ -62,6 +62,6 @@ Route::post('/carousel_save', 'Lacastilla_controller@carousel_save')->name('caro
 Route::get('/services', 'Lacastilla_controller@services')->name('services')->middleware(['auth', 'verified']);
 Route::post('/services_save', 'Lacastilla_controller@services_save')->name('services_save')->middleware(['auth', 'verified']);
 Route::post('/message_submit', 'Lacastilla_controller@message_submit')->name('message_submit');
-
-
-
+Route::get('/message', 'Lacastilla_controller@message')->name('message')->middleware(['auth', 'verified']);
+Route::get('/message_reply/{id}', 'Lacastilla_controller@message_reply')->name('message_reply')->middleware(['auth', 'verified']);
+Route::post('/message_process', 'Lacastilla_controller@message_process')->name('message_process')->middleware(['auth', 'verified']);

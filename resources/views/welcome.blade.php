@@ -87,18 +87,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Book</a>
                 </li>
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li> --}}
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 {{-- @if (Route::has('login'))
@@ -128,15 +116,21 @@
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="d-block w-100" src="{{ asset('upload_image/' . $carousel_first->image) }}"
-                                alt="First slide">
+                            @if ($carousel_first)
+                                <img class="d-block w-100" src="{{ asset('upload_image/' . $carousel_first->image) }}"
+                                    alt="First slide">
+                            @else
+                                Carousel
+                            @endif
                         </div>
-                        @foreach ($carousel as $data)
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="{{ asset('upload_image/' . $data->image) }}"
-                                    alt="Second slide">
-                            </div>
-                        @endforeach
+                        @if ($carousel)
+                            @foreach ($carousel as $data)
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="{{ asset('upload_image/' . $data->image) }}"
+                                        alt="Second slide">
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>

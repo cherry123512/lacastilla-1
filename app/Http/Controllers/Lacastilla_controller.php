@@ -183,4 +183,38 @@ class Lacastilla_controller extends Controller
 
         return redirect('/')->with('success', 'Successfully added a new carousel image');
     }
+
+    public function message()
+    {
+        $message = Message::get();
+        return view('message', [
+            'message' => $message,
+        ]);
+    }
+
+    public function message_reply($id)
+    {
+        $message = Message::find($id);
+        return view('message_reply', [
+            'message' => $message,
+        ]);
+    }
+
+    public function message_process(Request $request)
+    {
+        //return $request->input();
+        $validated = $request->validate([
+            'subject' => 'required',
+            'message' => 'required',
+        ]);
+
+        Message::where('id', $request->input('message_id'))
+            ->update([
+                'remarks' => 'replied',
+                'curator_id' => auth()->user()->id,
+                'curator_reply' => $request->input('message'),
+            ]);
+        
+        return redirect('message')->with('success', 'Message sent successfully');
+    }
 }
