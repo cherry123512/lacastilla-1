@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Inventory;
+use App\Models\Carousel;
+use App\Models\Services;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
 class Lacastilla_controller extends Controller
@@ -11,7 +14,7 @@ class Lacastilla_controller extends Controller
     public function inventory_list()
     {
         $inventory = Inventory::get();
-        return view('inventory_list',[
+        return view('inventory_list', [
             'inventory' => $inventory,
         ]);
     }
@@ -53,7 +56,7 @@ class Lacastilla_controller extends Controller
             'inventory_image' => 'required',
         ]);
 
-        
+
 
         $inventory_image = $request->file('inventory_image');
         $inventory_image_name = $inventory_image->getClientOriginalName();
@@ -92,6 +95,92 @@ class Lacastilla_controller extends Controller
 
         $inventory_save->save();
 
-        return redirect('inventory_list')->with('success','Successfully added new inventory');
+        return redirect('inventory_list')->with('success', 'Successfully added new inventory');
+    }
+
+    public function carousel()
+    {
+        return view('carousel');
+    }
+
+    public function carousel_save(Request $request)
+    {
+        //return $request->input();
+
+        $validated = $request->validate([
+            'title' => 'required',
+            'note' => 'required',
+            'image' => 'required',
+        ]);
+
+        $image = $request->file('image');
+        $image_name = $image->getClientOriginalName();
+        $image_file_type = $image->getClientmimeType();
+        $image->move(public_path() . '/upload_image/', $image_name);
+
+        $carousel_saved = new Carousel([
+            'title' => $request->input('title'),
+            'note' => $request->input('note'),
+            'image' => $image_name,
+            'curator_id' => auth()->user()->id,
+        ]);
+
+        $carousel_saved->save();
+
+        return redirect('carousel')->with('success', 'Successfully added a new carousel image');
+    }
+
+    public function services()
+    {
+        return view('services');
+    }
+
+    public function services_save(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'service_image' => 'required',
+            'amount' => 'required|numeric|between:0,9999.99',
+        ]);
+
+        $service_image = $request->file('service_image');
+        $service_image_name = $service_image->getClientOriginalName();
+        $service_image_file_type = $service_image->getClientmimeType();
+        $service_image->move(public_path() . '/upload_image/', $service_image_name);
+
+        $service_save = new Services([
+            'curator_id' => auth()->user()->id,
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'amount' => str_replace(',', '', $request->input('amount')),
+            'service_image' => $service_image_name,
+        ]);
+
+        $service_save->save();
+
+        return redirect('services')->with('success', 'Successfully added a new carousel image');
+    }
+
+    public function message_submit(Request $request)
+    {
+        $validated = $request->validate([
+            'user_name' => 'required',
+            'email' => 'required',
+            'subject' => 'required',
+            'message' => 'required',
+        ]);
+
+        $message_save = new Message([
+            'name' => $request->input('user_name'),
+            'email' => $request->input('email'),
+            'subject' => $request->input('subject'),
+            'message' => $request->input('message'),
+            'remarks' => '',
+        ]);
+
+        $message_save->save();
+
+        return redirect('/')->with('success', 'Successfully added a new carousel image');
     }
 }

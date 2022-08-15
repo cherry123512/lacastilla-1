@@ -15,9 +15,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/index', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/home', 'View_controller@index')->name('home');
+// Route::get('/', [App\Http\Controllers\View_controller::class, 'index'])->name('welcome');
+Route::get('/', 'View_controller@index')->name('home');
 
 Auth::routes();
 
@@ -46,8 +50,18 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 
 
+
+
+
+
 Route::get('/inventory_list', 'Lacastilla_controller@inventory_list')->name('inventory_list')->middleware(['auth', 'verified']);
 Route::get('/inventory_add', 'Lacastilla_controller@inventory_add')->name('inventory_add')->middleware(['auth', 'verified']);
 Route::post('/inventory_add_save', 'Lacastilla_controller@inventory_add_save')->name('inventory_add_save')->middleware(['auth', 'verified']);
+Route::get('/carousel', 'Lacastilla_controller@carousel')->name('carousel')->middleware(['auth', 'verified']);
+Route::post('/carousel_save', 'Lacastilla_controller@carousel_save')->name('carousel_save')->middleware(['auth', 'verified']);
+Route::get('/services', 'Lacastilla_controller@services')->name('services')->middleware(['auth', 'verified']);
+Route::post('/services_save', 'Lacastilla_controller@services_save')->name('services_save')->middleware(['auth', 'verified']);
+Route::post('/message_submit', 'Lacastilla_controller@message_submit')->name('message_submit');
+
 
 

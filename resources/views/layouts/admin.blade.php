@@ -33,7 +33,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #8d221c">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -73,6 +73,20 @@
                 <a class="nav-link" href="{{ route('inventory_list') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
                     <span>{{ __('Inventory') }}</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('carousel') }}">
+                <a class="nav-link" href="{{ route('carousel') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Carousel') }}</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('services') }}">
+                <a class="nav-link" href="{{ route('services') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Services') }}</span>
                 </a>
             </li>
 
@@ -370,6 +384,25 @@
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('jquery.masknumber.js') }}"></script>
+    <script>
+        $('[class=currency-default]').maskNumber();
+        $('[class=currency-data-attributes]').maskNumber();
+        $('[class=currency-configuration]').maskNumber({
+            decimal: '_',
+            thousands: '*'
+        });
+        $('[class=integer-default]').maskNumber({
+            integer: true
+        });
+        $('[class=integer-data-attribute]').maskNumber({
+            integer: true
+        });
+        $('[class=integer-configuration]').maskNumber({
+            integer: true,
+            thousands: '_'
+        });
+    </script>
 </body>
 
 </html>

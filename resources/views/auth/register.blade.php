@@ -7,22 +7,14 @@
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <img src="{{ asset('upload_image/lacastilla_logo.png') }}" alt="">
+                            </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">{{ __('Register') }}</h1>
                                     </div>
-
-                                    {{-- @if ($errors->any())
-                                    <div class="alert alert-danger border-left-danger" role="alert">
-                                        <ul class="pl-4 my-2">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif --}}
 
                                     <form method="POST" action="{{ route('register') }}" class="user">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
