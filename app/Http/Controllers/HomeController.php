@@ -31,6 +31,14 @@ class HomeController extends Controller
             //...
         ];
 
-        return view('home', compact('widget'));
+        $user_type = User::find(auth()->user()->id);
+
+        if ($user_type->user_type == 'client') {
+            return redirect('booking');
+        }else{
+            return view('home', compact('widget'));
+        }
+
+       
     }
 }

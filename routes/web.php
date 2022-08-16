@@ -26,6 +26,11 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'View_controller@index')->name('home');
 
+Route::get('booking', 'View_controller@booking')->name('booking');
+Route::post('booking_process', 'View_controller@booking_process')->name('booking_process');
+Route::get('logout', 'View_controller@logout')->name('logout');
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware(['auth', 'verified']);

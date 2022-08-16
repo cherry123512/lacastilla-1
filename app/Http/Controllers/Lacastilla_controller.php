@@ -255,7 +255,7 @@ class Lacastilla_controller extends Controller
 
     public function schedule_process(Request $request)
     {
-        return $request->input();
+        //return $request->input();
         $validated = $request->validate([
             'date' => 'required',
             'time_from' => 'required',
