@@ -50,6 +50,8 @@
                                                 class="form-control form-control-user  @error('email') is-invalid @enderror"
                                                 name="email" placeholder="{{ __('E-Mail Address') }}"
                                                 value="{{ old('email') }}">
+
+                                            <input type="hidden" name="user_type" value="client">
                                         </div>
 
                                         @error('email')

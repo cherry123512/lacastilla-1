@@ -49,7 +49,13 @@
                                         <td>{{ $data->email }}</td>
                                         <td>{{ $data->subject }}</td>
                                         <td>{{ $data->message }}</td>
-                                        <th><a href="{{ url('message_reply/'. $data->id) }}" class="btn btn-primary btn-sm">Reply</a></th>
+                                        @if ($data->remarks == 'replied')
+                                            <th><a href="{{ url('message_view_reply/' . $data->id) }}"
+                                                    class="btn btn-success btn-sm">Replied</a></th>
+                                        @else
+                                            <th><a href="{{ url('message_reply/' . $data->id) }}"
+                                                    class="btn btn-primary btn-sm">Reply</a></th>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

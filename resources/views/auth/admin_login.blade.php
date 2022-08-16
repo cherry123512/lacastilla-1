@@ -13,7 +13,7 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">{{ __('Login') }}</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">{{ __('Admin Login') }}</h1>
                                 </div>
 
                                 @if ($errors->any())
@@ -35,15 +35,15 @@
 
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user" name="password" placeholder="{{ __('Password') }}" required>
+
+                                        <input type="hidden" name="user_type" value="admin">
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
+                                        {{-- <div class="custom-control custom-checkbox small">
                                             <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="remember">{{ __('Remember Me') }}</label>
-
-                                           
-                                        </div>
+                                        </div> --}}
                                     </div>
 
                                     <div class="form-group">
@@ -74,7 +74,7 @@
                                 </form>
 
                                 <hr>
-
+{{-- 
                                 @if (Route::has('password.request'))
                                     <div class="text-center">
                                         <a class="small" href="{{ route('password.request') }}">
@@ -87,7 +87,7 @@
                                     <div class="text-center">
                                         <a class="small" href="{{ route('register') }}">{{ __('Create an Account!') }}</a>
                                     </div>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </div>

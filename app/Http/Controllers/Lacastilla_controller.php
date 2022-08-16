@@ -7,10 +7,21 @@ use App\Models\Inventory;
 use App\Models\Carousel;
 use App\Models\Services;
 use App\Models\Message;
+use App\Mail\lacastilla_mail;
+use App\Models\schedule;
+use App\Models\schedule_details;
+use Illuminate\Console\Scheduling\Schedule as SchedulingSchedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class Lacastilla_controller extends Controller
 {
+
+    public function lacastilla_admin()
+    {
+        return view('auth/admin_login');
+    }
+
     public function inventory_list()
     {
         $inventory = Inventory::get();
@@ -203,6 +214,9 @@ class Lacastilla_controller extends Controller
     public function message_process(Request $request)
     {
         //return $request->input();
+        date_default_timezone_set('Asia/Manila');
+        $date = date('Y-m-d H:i:s');
+
         $validated = $request->validate([
             'subject' => 'required',
             'message' => 'required',
@@ -213,8 +227,58 @@ class Lacastilla_controller extends Controller
                 'remarks' => 'replied',
                 'curator_id' => auth()->user()->id,
                 'curator_reply' => $request->input('message'),
+                'updated_at' => $date,
             ]);
-        
+
+        $subject = $request->input('subject');
+        $messages = $request->input('message');
+        Mail::to($request->input('email'))->send(new lacastilla_mail($subject, $messages));
+
         return redirect('message')->with('success', 'Message sent successfully');
+    }
+
+    public function message_view_reply($id)
+    {
+        $message = Message::find($id);
+        return view('message_view_reply', [
+            'message' => $message,
+        ]);
+    }
+
+    public function schedule()
+    {
+        $schedule = Schedule::get();
+        return view('schedule',[
+            'schedule' => $schedule,
+        ]);
+    }
+
+    public function schedule_process(Request $request)
+    {
+        return $request->input();
+        $validated = $request->validate([
+            'date' => 'required',
+            'time_from' => 'required',
+            'time_to' => 'required',
+        ]);
+
+        $schedule = new Schedule([
+            'curator_id' => auth()->user()->id,
+            'status' => '',
+        ]);
+
+        $schedule->save();
+
+        $schedule_details = new Schedule_details([
+            'schedule_id' => $schedule->id,
+            'date' => $request->input('date'),
+            'time_from' => $request->input('time_from'),
+            'time_to' => $request->input('time_to'),
+            'remarks' => '',
+        ]);
+
+        $schedule_details->save();
+
+        return redirect('schedule')->with('success', 'Schedule Successfully Added');
     }
 }

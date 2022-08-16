@@ -43,6 +43,7 @@
                                         <b>Date:</b> {{ date('F j, Y H:i a', strtotime($message->created_at)) }}
                                     </span>
                                 </div>
+                                <input type="hidden" name="email" value="{{ $message->email }}">
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">

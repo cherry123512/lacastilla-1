@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ use Illuminate\Http\Request;
 
 // Route::get('/home', 'View_controller@index')->name('home');
 // Route::get('/', [App\Http\Controllers\View_controller::class, 'index'])->name('welcome');
+
+
 Route::get('/', 'View_controller@index')->name('home');
 
 Auth::routes();
@@ -53,7 +56,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 
 
-
+Route::get('/lacastilla_admin', 'Lacastilla_controller@lacastilla_admin')->name('lacastilla_admin');
 Route::get('/inventory_list', 'Lacastilla_controller@inventory_list')->name('inventory_list')->middleware(['auth', 'verified']);
 Route::get('/inventory_add', 'Lacastilla_controller@inventory_add')->name('inventory_add')->middleware(['auth', 'verified']);
 Route::post('/inventory_add_save', 'Lacastilla_controller@inventory_add_save')->name('inventory_add_save')->middleware(['auth', 'verified']);
@@ -65,3 +68,6 @@ Route::post('/message_submit', 'Lacastilla_controller@message_submit')->name('me
 Route::get('/message', 'Lacastilla_controller@message')->name('message')->middleware(['auth', 'verified']);
 Route::get('/message_reply/{id}', 'Lacastilla_controller@message_reply')->name('message_reply')->middleware(['auth', 'verified']);
 Route::post('/message_process', 'Lacastilla_controller@message_process')->name('message_process')->middleware(['auth', 'verified']);
+Route::get('/message_view_reply/{id}', 'Lacastilla_controller@message_view_reply')->name('message_view_reply')->middleware(['auth', 'verified']);
+Route::get('/schedule', 'Lacastilla_controller@schedule')->name('schedule')->middleware(['auth', 'verified']);
+Route::post('/schedule_process', 'Lacastilla_controller@schedule_process')->name('schedule_process')->middleware(['auth', 'verified']);

@@ -79,10 +79,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Heritage</a>
+                    <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Book</a>
@@ -140,7 +137,55 @@
             <div class="col-md-8">
                 <div class="card" style="width: 100%;">
                     <div class="card-body">
-                        Services
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                @for ($i = 1; $i < count($services); $i++)
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ $i }}">
+                                    </li>
+                                @endfor
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    @if ($services_first)
+                                        <img class="d-block w-100"
+                                            src="{{ asset('upload_image/' . $services_first->service_image) }}"
+                                            alt="First slide">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5>{{ $services_first->title }}</h5>
+                                            <p>{{ $services_first->description }}</p>
+                                        </div>
+                                    @else
+                                        Carousel
+                                    @endif
+
+                                </div>
+                                @if ($services)
+                                    @foreach ($services as $data)
+                                        <div class="carousel-item">
+                                            <img class="d-block w-100"
+                                                src="{{ asset('upload_image/' . $data->service_image) }}"
+                                                alt="Second slide">
+
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <h5>{{ $data->title }}</h5>
+                                                <p>{{ $data->description }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -203,7 +248,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <textarea name="message" class="form-control @error('message') is-invalid @enderror" id="" cols="30"
-                                            rows="10">
+                                            rows="5">
                                         Message {{ old('message') }}
                                     </textarea>
 
@@ -228,7 +273,7 @@
 
     <br /><br />
 
-    <div class="fixed-bottom " style="background:#8d221c">
+    <div class="fixed-bottom-sm" style="background:#8d221c">
         <p style="color:white;text-align:center">La-castilla@2022 All Rights Reserved.</p>
     </div>
 

@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Lacastilla') }}</title>
 
     <!-- Fonts -->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
@@ -46,7 +46,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
+            {{-- <!-- Nav Item - Dashboard -->
             <li class="nav-item {{ Nav::isRoute('home') }}">
                 <a class="nav-link" href="{{ route('home') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -54,18 +54,25 @@
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider"> --}}
 
             <!-- Heading -->
-            <div class="sidebar-heading">
+            {{-- <div class="sidebar-heading">
                 {{ __('Settings') }}
-            </div>
+            </div> --}}
 
             <!-- Nav Item - Profile -->
             <li class="nav-item {{ Nav::isRoute('profile') }}">
                 <a class="nav-link" href="{{ route('profile') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>{{ __('Profile') }}</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('schedule') }}">
+                <a class="nav-link" href="{{ route('schedule') }}">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>{{ __('Schedule') }}</span>
                 </a>
             </li>
 
@@ -131,7 +138,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    {{-- <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small"
@@ -142,13 +149,13 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
+                        {{-- <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
@@ -169,9 +176,9 @@
                                     </div>
                                 </form>
                             </div>
-                        </li>
+                        </li> --}}
 
-                        <!-- Nav Item - Alerts -->
+                        {{-- <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -289,7 +296,7 @@
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More
                                     Messages</a>
                             </div>
-                        </li>
+                        </li> --}}
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -305,7 +312,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                {{-- <a class="dropdown-item" href="{{ route('profile') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Profile') }}
                                 </a>
@@ -317,7 +324,7 @@
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Activity Log') }}
                                 </a>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div> --}}
                                 <a class="dropdown-item" href="#" data-toggle="modal"
                                     data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

@@ -70,7 +70,7 @@ class RegisterController extends Controller
             'contact_number' => $data['contact_number'],
             'email' => $data['email'],
             'password' => $data['password'],
-            'user_type' => 'admin'
+            'user_type' => $data['user_type'],
         ]);
     }
 }
