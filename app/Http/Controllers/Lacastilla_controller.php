@@ -8,6 +8,9 @@ use App\Models\Carousel;
 use App\Models\Services;
 use App\Models\Message;
 use App\Mail\lacastilla_mail;
+use App\Mail\Reservation_approved;
+
+use App\Models\Reservations;
 use App\Models\schedule;
 use App\Models\schedule_details;
 use Illuminate\Console\Scheduling\Schedule as SchedulingSchedule;
@@ -25,54 +28,63 @@ class Lacastilla_controller extends Controller
     public function inventory_list()
     {
         $inventory = Inventory::get();
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
         return view('inventory_list', [
             'inventory' => $inventory,
+            'reservation_count' => $reservation_count,
         ]);
     }
 
     public function inventory_add()
     {
-        return view('inventory_add');
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        return view('inventory_add', [
+            'reservation_count' => $reservation_count,
+        ]);
     }
 
     public function inventory_add_save(Request $request)
     {
         //return $request->all();
 
-        $validated = $request->validate([
-            'type_of_object' => 'required',
-            'location_of_object' => 'required',
-            'description_title' => 'required',
-            'number_of_pieces' => 'required',
-            'length' => 'required',
-            'width' => 'required',
-            'dimension' => 'required',
-            'medium_and_material' => 'required',
-            'maker_artist' => 'required',
-            'location_of_signation' => 'required',
-            'date_of_birth' => 'required',
-            'location_of_date_on_object' => 'required',
-            'writing_other_than_signature' => 'required',
-            'place_of_origin' => 'required',
-            'place_collected' => 'required',
-            'date_received' => 'required',
-            'original_as_shown' => 'required',
-            'object_original_used' => 'required',
-            'receipt' => 'required',
-            'item_description' => 'required',
-            'condition_of_object' => 'required',
-            'history' => 'required',
-            'purchase_or_received' => 'required',
-            'personal_story_of_this_object' => 'required',
-            'inventory_image' => 'required',
-        ]);
+        // $validated = $request->validate([
+        //     'type_of_object' => 'required',
+        //     'location_of_object' => 'required',
+        //     'description_title' => 'required',
+        //     'number_of_pieces' => 'required',
+        //     'length' => 'required',
+        //     'width' => 'required',
+        //     'dimension' => 'required',
+        //     'medium_and_material' => 'required',
+        //     'maker_artist' => 'required',
+        //     'location_of_signation' => 'required',
+        //     'date_of_birth' => 'required',
+        //     'location_of_date_on_object' => 'required',
+        //     'writing_other_than_signature' => 'required',
+        //     'place_of_origin' => 'required',
+        //     'place_collected' => 'required',
+        //     'date_received' => 'required',
+        //     'original_as_shown' => 'required',
+        //     'object_original_used' => 'required',
+        //     'receipt' => 'required',
+        //     'item_description' => 'required',
+        //     'condition_of_object' => 'required',
+        //     'history' => 'required',
+        //     'purchase_or_received' => 'required',
+        //     'personal_story_of_this_object' => 'required',
+        //     'inventory_image' => 'required',
+        // ]);
 
 
+
+        // $inventory_image = $request->file('inventory_image');
+        // $inventory_image_name = $inventory_image->getClientOriginalName();
+        // $inventory_image_file_type = $inventory_image->getClientmimeType();
+        // $inventory_image->move(public_path() . '/upload_image/', $inventory_image_name);
 
         $inventory_image = $request->file('inventory_image');
-        $inventory_image_name = $inventory_image->getClientOriginalName();
-        $inventory_image_file_type = $inventory_image->getClientmimeType();
-        $inventory_image->move(public_path() . '/upload_image/', $inventory_image_name);
+        $inventory_image_name = 'inventory_image-' . time() . '.' . $inventory_image->getClientOriginalExtension();
+        $path_inventory_image = $inventory_image->storeAs('public', $inventory_image_name);
 
 
         $inventory_save = new Inventory([
@@ -111,7 +123,10 @@ class Lacastilla_controller extends Controller
 
     public function carousel()
     {
-        return view('carousel');
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        return view('carousel', [
+            'reservation_count' => $reservation_count,
+        ]);
     }
 
     public function carousel_save(Request $request)
@@ -143,7 +158,10 @@ class Lacastilla_controller extends Controller
 
     public function services()
     {
-        return view('services');
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        return view('services', [
+            'reservation_count' => $reservation_count,
+        ]);
     }
 
     public function services_save(Request $request)
@@ -155,17 +173,21 @@ class Lacastilla_controller extends Controller
             'amount' => 'required|numeric|between:0,9999.99',
         ]);
 
+        // $service_image = $request->file('service_image');
+        // $service_image_name = $service_image->getClientOriginalName();
+        // $service_image_file_type = $service_image->getClientmimeType();
+        // $service_image->move(public_path() . '/upload_image/', $service_image_name);
+
         $service_image = $request->file('service_image');
-        $service_image_name = $service_image->getClientOriginalName();
-        $service_image_file_type = $service_image->getClientmimeType();
-        $service_image->move(public_path() . '/upload_image/', $service_image_name);
+        $service_image_image_name = 'service_image-' . time() . '.' . $service_image->getClientOriginalExtension();
+        $path_service_image = $service_image->storeAs('public', $service_image_image_name);
 
         $service_save = new Services([
             'curator_id' => auth()->user()->id,
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'amount' => str_replace(',', '', $request->input('amount')),
-            'service_image' => $service_image_name,
+            'service_image' => $service_image_image_name,
         ]);
 
         $service_save->save();
@@ -198,16 +220,20 @@ class Lacastilla_controller extends Controller
     public function message()
     {
         $message = Message::get();
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
         return view('message', [
             'message' => $message,
+            'reservation_count' => $reservation_count,
         ]);
     }
 
     public function message_reply($id)
     {
         $message = Message::find($id);
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
         return view('message_reply', [
             'message' => $message,
+            'reservation_count' => $reservation_count,
         ]);
     }
 
@@ -240,16 +266,20 @@ class Lacastilla_controller extends Controller
     public function message_view_reply($id)
     {
         $message = Message::find($id);
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
         return view('message_view_reply', [
             'message' => $message,
+            'reservation_count' => $reservation_count,
         ]);
     }
 
     public function schedule()
     {
         $schedule = Schedule::get();
-        return view('schedule',[
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        return view('schedule', [
             'schedule' => $schedule,
+            'reservation_count' => $reservation_count,
         ]);
     }
 
@@ -280,5 +310,38 @@ class Lacastilla_controller extends Controller
         $schedule_details->save();
 
         return redirect('schedule')->with('success', 'Schedule Successfully Added');
+    }
+
+    public function reservations()
+    {
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        $reservations = Reservations::orderBy('id', 'desc')->get();
+        return view('reservation', [
+            'reservation_count' => $reservation_count,
+            'reservations' => $reservations,
+        ]);
+    }
+
+    public function reservation_approved($id)
+    {
+        date_default_timezone_set('Asia/Manila');
+        $date = date('Y-m-d');
+        $user = User::find(auth()->user()->id);
+        $reservation = Reservations::find($id);
+        Reservations::where('id', $id)
+            ->update([
+                'remarks' => 'approved',
+                'status' => 'approved',
+                'curator_id' => auth()->user()->id,
+                'validation_date' => $date,
+            ]);
+        
+
+        $reservation_date = $reservation->sched_details->date;
+        $reservation_time_from = date('h:i:s a', strtotime($reservation->sched_details->time_from));
+        $reservation_time_to = date('h:i:s a', strtotime($reservation->sched_details->time_to));
+        $name = $reservation->user->name;
+        Mail::to($user->email)->send(new Reservation_approved($name,$reservation_date,$reservation_time_from,$reservation_time_to));
+        return redirect('reservations')->with('success', 'Successfully Approved Reservation');
     }
 }

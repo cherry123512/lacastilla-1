@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Reservations;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -36,7 +37,10 @@ class HomeController extends Controller
         if ($user_type->user_type == 'client') {
             return redirect('booking');
         }else{
-            return view('home', compact('widget'));
+            $reservation_count = Reservations::where('status','Pending Approval')->count();
+            return view('home', compact('widget'),[
+                'reservation_count' => $reservation_count,
+            ]);
         }
 
        

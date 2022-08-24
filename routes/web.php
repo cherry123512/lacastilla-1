@@ -29,7 +29,7 @@ Route::get('/', 'View_controller@index')->name('home');
 Route::get('booking', 'View_controller@booking')->name('booking');
 Route::post('booking_process', 'View_controller@booking_process')->name('booking_process');
 Route::get('logout', 'View_controller@logout')->name('logout');
-
+Route::get('client_reservation', 'View_controller@client_reservation')->name('client_reservation');
 
 Auth::routes();
 
@@ -76,3 +76,6 @@ Route::post('/message_process', 'Lacastilla_controller@message_process')->name('
 Route::get('/message_view_reply/{id}', 'Lacastilla_controller@message_view_reply')->name('message_view_reply')->middleware(['auth', 'verified']);
 Route::get('/schedule', 'Lacastilla_controller@schedule')->name('schedule')->middleware(['auth', 'verified']);
 Route::post('/schedule_process', 'Lacastilla_controller@schedule_process')->name('schedule_process')->middleware(['auth', 'verified']);
+
+Route::get('/reservations', 'Lacastilla_controller@reservations')->name('reservations')->middleware(['auth', 'verified']);
+Route::get('/reservation_approved/{id}', 'Lacastilla_controller@reservation_approved')->name('reservation_approved')->middleware(['auth', 'verified']);

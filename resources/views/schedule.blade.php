@@ -107,8 +107,8 @@
                                         <td>{{ $data->curator->name }}</td>
                                         <td>{{ $data->status }}</td>
                                         <td>{{ $data->schedule_details[0]->date }}</td>
-                                        <td>{{ date('H:i a', strtotime($data->schedule_details[0]->time_from)) }}</td>
-                                        <td>{{ date('H:i a', strtotime($data->schedule_details[0]->time_to)) }}</td>
+                                        <td>{{ date('h:i:s a', strtotime($data->schedule_details[0]->time_from)) }}</td>
+                                        <td>{{ date('h:i:s a', strtotime($data->schedule_details[0]->time_to)) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

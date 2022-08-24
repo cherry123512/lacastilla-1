@@ -11,6 +11,8 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 
     <!-- Styles -->
     <style>
@@ -84,6 +86,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ url('booking') }}">Book</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('client_reservation') }}">Reservations</a>
+                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 {{-- @if (Route::has('login'))
@@ -113,7 +118,7 @@
         <br />
         <div class="content-fluid" style="margin-left:50px;margin-right:50px;">
             <div class="card" style="width: 100%;">
-                <h6 class="card-header">Reserved Lcastilla Tour Now!</h6>
+                <h6 class="card-header">Reserved Lacastilla Tour Now!</h6>
                 <div class="card-body">
                     @guest
                         Please Login First.<a href="{{ url('login') }}">Click here to login.</a>
@@ -121,6 +126,13 @@
                         <form action="{{ route('booking_process') }}" method="post">
                             @csrf
                             <div class="row">
+                                <div class="col-md-12">
+                                    @if (session('success'))
+                                        <div class="alert alert-success border-left-success" role="alert">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+                                </div>
                                 <div class="col-md-4">
                                     <label for="available_schedules">Available Schedules:</label>
                                     <select name="available_schedules" id="available_schedules"
@@ -128,7 +140,7 @@
                                         <option value="" default>Select</option>
                                         @foreach ($sched as $data)
                                             @foreach ($data->schedule_details as $details)
-                                                <option value="{{ $data->id }}"
+                                                <option value="{{ $details->id }}"
                                                     {{ old('available_schedules') == $data->id ? 'selected' : '' }}>
                                                     {{ date('F j, Y', strtotime($details->date)) . ' ' . date('h:i:s a', strtotime($details->time_from)) . ' - ' . date('h:i:s a', strtotime($details->time_to)) }}
                                                 </option>
@@ -144,8 +156,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="services">Services:</label>
-                                    <select name="services" id="services"
-                                        class="form-control @error('services') is-invalid @enderror">
+                                    <select class="selectpicker form-control @error('services') is-invalid @enderror" multiple
+                                        data-live-search="true" name="services[]" id="services">
                                         <option value="" default>Select</option>
                                         @foreach ($services as $data)
                                             <option value="{{ $data->id }}"
@@ -164,7 +176,8 @@
                                     <label for="number_of_attending_persons">Number of attending persons:</label>
                                     <input type="text"
                                         class="form-control @error('number_of_attending_persons') is-invalid @enderror"
-                                        {{ old('number_of_attending_persons') }}">
+                                        {{ old('number_of_attending_persons') }}" id="number_of_attending_persons"
+                                        name="number_of_attending_persons">
 
                                     @error('number_of_attending_persons')
                                         <span class="invalid-feedback" role="alert">
@@ -203,9 +216,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
         <script>
-            $('.carousel').carousel()
+            $('.carousel').carousel();
+            $('.select').selectpicker();
         </script>
 
         </html>

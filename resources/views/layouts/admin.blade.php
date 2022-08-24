@@ -76,6 +76,13 @@
                 </a>
             </li>
 
+            <li class="nav-item {{ Nav::isRoute('reservations') }}">
+                <a class="nav-link" href="{{ route('reservations') }}">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>{{ __('Reservation') }} </span><span class="badge badge-light">{{ $reservation_count }}</span>
+                </a>
+            </li>
+
             <li class="nav-item {{ Nav::isRoute('inventory_list') }}">
                 <a class="nav-link" href="{{ route('inventory_list') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
