@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('reservation_time')->nullable();
             $table->Integer('number_of_persons');
             $table->date('validation_date')->nullable();
-            $table->bigInteger('curator_id');
+            $table->bigInteger('curator_id')->nullable();
             $table->string('remarks');
             $table->string('status');
             $table->timestamps();

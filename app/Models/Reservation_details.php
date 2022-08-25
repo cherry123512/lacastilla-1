@@ -14,4 +14,9 @@ class Reservation_details extends Model
         'service_id',
         'amount',
     ];
+
+    public function services()
+    {
+        return $this->belongsTo('App\Models\Services', 'service_id');
+    }
 }
