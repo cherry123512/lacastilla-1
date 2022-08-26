@@ -177,14 +177,18 @@
                                                 <tfoot>
                                                     <tr>
                                                         <td>Total:</td>
-                                                        <td style="text-decoration: overline">{{ number_format(array_sum($sum), 2, '.', ',') }}</td>
+                                                        <td style="text-decoration: overline">
+                                                            {{ number_format(array_sum($sum), 2, '.', ',') }}</td>
                                                     </tr>
                                                 </tfoot>
                                             </table>
                                         </div>
                                     </div>
-                    @endif
-                </div>
+                                @endif
+                            </div>
+                            <div class="card-footer">
+                                
+                            </div>
             </div>
             <br />
             </div>
