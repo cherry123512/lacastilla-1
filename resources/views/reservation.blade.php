@@ -44,6 +44,7 @@
                                     <th>Validation Date</th>
                                     <th>Curator</th>
                                     <th>Remarks</th>
+                                    <th>Services</th>
                                     <th>Option</th>
                                 </tr>
                             </thead>
@@ -65,10 +66,67 @@
                                         </td>
                                         <td>{{ $data->remarks }}</td>
                                         <td>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#exampleModal{{ $data->id }}">
+                                                Services
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal{{ $data->id }}" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-sm table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Service</th>
+                                                                        <th>Amount</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($data->reservation_details as $details)
+                                                                        <tr>
+                                                                            <td>{{ $details->services->title }}</td>
+                                                                            <td>
+                                                                                @php
+                                                                                    $sum[] = $details->services->amount;
+                                                                                @endphp
+                                                                                {{ number_format($details->services->amount,2,".",",") }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <th>Total:</th>
+                                                                        <th>{{ number_format(array_sum($sum),2,".",",") }}</th>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                          
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
                                             @if ($data->remarks == 'Pending Approval')
                                                 <a class="btn btn-warning btn-sm btn-block"
                                                     href="{{ url('reservation_approved', $data->id) }}">Approved ?</a>
-                                            {{-- @elseif($data->remarks == 'Approved')
+                                                {{-- @elseif($data->remarks == 'Approved')
                                                 <a class="btn btn-warning btn-sm btn-block"
                                                     href="{{ url('reservation_approved', $data->id) }}">Paid ?</a> --}}
                                             @endif

@@ -47,7 +47,7 @@ class View_controller extends Controller
             'number_of_attending_persons' => 'required|numeric',
         ]);
         
-        date_default_timezone_set('Asia/Manila');
+    date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d');
         $time = date('H:i:s a');
 
@@ -61,6 +61,7 @@ class View_controller extends Controller
             'curator_id' => null,
             'remarks' => 'Pending Approval',
             'status' => 'Pending Approval',
+            'image' => '',
         ]);
 
         $new->save();
@@ -88,7 +89,7 @@ class View_controller extends Controller
 
     public function client_reservation()
     {
-        $reservations = Reservations::where('user_id',auth()->user()->id)->get();
+        $reservations = Reservations::where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
         return view('client_reservation',[
             'reservations' => $reservations,
         ]);

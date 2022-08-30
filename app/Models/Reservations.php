@@ -19,6 +19,7 @@ class Reservations extends Model
         'curator_id',
         'remarks',
         'status',
+        'image',
     ];
 
     public function curator()
@@ -34,5 +35,10 @@ class Reservations extends Model
     public function sched_details()
     {
         return $this->belongsTo('App\Models\Schedule_details', 'schedule_id');
+    }
+
+    public function reservation_details()
+    {
+        return $this->hasMany('App\Models\Reservation_details', 'reservation_id');
     }
 }
