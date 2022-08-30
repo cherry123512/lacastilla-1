@@ -82,9 +82,13 @@ class Lacastilla_controller extends Controller
         // $inventory_image_file_type = $inventory_image->getClientmimeType();
         // $inventory_image->move(public_path() . '/upload_image/', $inventory_image_name);
 
-        $inventory_image = $request->file('inventory_image');
-        $inventory_image_name = 'inventory_image-' . time() . '.' . $inventory_image->getClientOriginalExtension();
-        $path_inventory_image = $inventory_image->storeAs('public', $inventory_image_name);
+        if ($request->file('inventory_image')) {
+            $inventory_image = $request->file('inventory_image');
+            $inventory_image_name = 'inventory_image-' . time() . '.' . $inventory_image->getClientOriginalExtension();
+            $path_inventory_image = $inventory_image->storeAs('public', $inventory_image_name);
+        } else {
+            $inventory_image_name = '';
+        }
 
 
         $inventory_save = new Inventory([
@@ -95,7 +99,10 @@ class Lacastilla_controller extends Controller
             'number_of_pieces' => $request->input('number_of_pieces'),
             'length' => $request->input('length'),
             'width' => $request->input('width'),
-            'dimension' => $request->input('dimension'),
+            'weight' => $request->input('weight'),
+            'height' => $request->input('height'),
+            'diameter' => $request->input('diameter'),
+            'reference_number' => $request->input('reference_number'),
             'medium_and_material' => $request->input('medium_and_material'),
             'maker_artist' => $request->input('maker_artist'),
             'location_of_signation' => $request->input('location_of_signation'),
@@ -139,15 +146,19 @@ class Lacastilla_controller extends Controller
             'image' => 'required',
         ]);
 
-        $image = $request->file('image');
-        $image_name = $image->getClientOriginalName();
-        $image_file_type = $image->getClientmimeType();
-        $image->move(public_path() . '/upload_image/', $image_name);
+        // $image = $request->file('image');
+        // $image_name = $image->getClientOriginalName();
+        // $image_file_type = $image->getClientmimeType();
+        // $image->move(public_path() . '/upload_image/', $image_name);
+
+        $inventory_image = $request->file('image');
+        $inventory_image_name = 'inventory_image-' . time() . '.' . $inventory_image->getClientOriginalExtension();
+        $path_inventory_image = $inventory_image->storeAs('public', $inventory_image_name);
 
         $carousel_saved = new Carousel([
             'title' => $request->input('title'),
             'note' => $request->input('note'),
-            'image' => $image_name,
+            'image' => $inventory_image_name,
             'curator_id' => auth()->user()->id,
         ]);
 
@@ -335,13 +346,38 @@ class Lacastilla_controller extends Controller
                 'curator_id' => auth()->user()->id,
                 'validation_date' => $date,
             ]);
-        
+
 
         $reservation_date = $reservation->sched_details->date;
         $reservation_time_from = date('h:i:s a', strtotime($reservation->sched_details->time_from));
         $reservation_time_to = date('h:i:s a', strtotime($reservation->sched_details->time_to));
         $name = $reservation->user->name;
-        Mail::to($user->email)->send(new Reservation_approved($name,$reservation_date,$reservation_time_from,$reservation_time_to));
+        Mail::to($user->email)->send(new Reservation_approved($name, $reservation_date, $reservation_time_from, $reservation_time_to));
         return redirect('reservations')->with('success', 'Successfully Approved Reservation');
+    }
+
+    public function carousel_list()
+    {
+        $carousel = Carousel::get();
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        return view('carousel_list', [
+            'carousel' => $carousel,
+            'reservation_count' => $reservation_count,
+        ]);
+    }
+
+    public function carousel_status($id)
+    {
+        $status = Carousel::find($id);
+
+        if ($status->status == '') {
+            Carousel::where('id', $id)
+                ->update(['status' => 'deactivated']);
+        } else {
+            Carousel::where('id', $id)
+                ->update(['status' => '']);
+        }
+
+        return redirect('carousel_list')->with('success', 'Successfully Carousel Status');
     }
 }

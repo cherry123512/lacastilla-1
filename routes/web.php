@@ -62,20 +62,25 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 
 Route::get('/lacastilla_admin', 'Lacastilla_controller@lacastilla_admin')->name('lacastilla_admin');
-Route::get('/inventory_list', 'Lacastilla_controller@inventory_list')->name('inventory_list')->middleware(['auth', 'verified']);
-Route::get('/inventory_add', 'Lacastilla_controller@inventory_add')->name('inventory_add')->middleware(['auth', 'verified']);
-Route::post('/inventory_add_save', 'Lacastilla_controller@inventory_add_save')->name('inventory_add_save')->middleware(['auth', 'verified']);
-Route::get('/carousel', 'Lacastilla_controller@carousel')->name('carousel')->middleware(['auth', 'verified']);
-Route::post('/carousel_save', 'Lacastilla_controller@carousel_save')->name('carousel_save')->middleware(['auth', 'verified']);
-Route::get('/services', 'Lacastilla_controller@services')->name('services')->middleware(['auth', 'verified']);
-Route::post('/services_save', 'Lacastilla_controller@services_save')->name('services_save')->middleware(['auth', 'verified']);
+Route::get('/inventory_list', 'Lacastilla_controller@inventory_list')->name('inventory_list');
+Route::get('/inventory_add', 'Lacastilla_controller@inventory_add')->name('inventory_add');
+Route::post('/inventory_add_save', 'Lacastilla_controller@inventory_add_save')->name('inventory_add_save');
+Route::get('/carousel', 'Lacastilla_controller@carousel')->name('carousel');
+Route::post('/carousel_save', 'Lacastilla_controller@carousel_save')->name('carousel_save');
+Route::get('/services', 'Lacastilla_controller@services')->name('services');
+Route::post('/services_save', 'Lacastilla_controller@services_save')->name('services_save');
 Route::post('/message_submit', 'Lacastilla_controller@message_submit')->name('message_submit');
-Route::get('/message', 'Lacastilla_controller@message')->name('message')->middleware(['auth', 'verified']);
-Route::get('/message_reply/{id}', 'Lacastilla_controller@message_reply')->name('message_reply')->middleware(['auth', 'verified']);
-Route::post('/message_process', 'Lacastilla_controller@message_process')->name('message_process')->middleware(['auth', 'verified']);
-Route::get('/message_view_reply/{id}', 'Lacastilla_controller@message_view_reply')->name('message_view_reply')->middleware(['auth', 'verified']);
-Route::get('/schedule', 'Lacastilla_controller@schedule')->name('schedule')->middleware(['auth', 'verified']);
-Route::post('/schedule_process', 'Lacastilla_controller@schedule_process')->name('schedule_process')->middleware(['auth', 'verified']);
+Route::get('/message', 'Lacastilla_controller@message')->name('message');
+Route::get('/message_reply/{id}', 'Lacastilla_controller@message_reply')->name('message_reply');
+Route::post('/message_process', 'Lacastilla_controller@message_process')->name('message_process');
+Route::get('/message_view_reply/{id}', 'Lacastilla_controller@message_view_reply')->name('message_view_reply');
+Route::get('/schedule', 'Lacastilla_controller@schedule')->name('schedule');
+Route::post('/schedule_process', 'Lacastilla_controller@schedule_process')->name('schedule_process');
 
-Route::get('/reservations', 'Lacastilla_controller@reservations')->name('reservations')->middleware(['auth', 'verified']);
-Route::get('/reservation_approved/{id}', 'Lacastilla_controller@reservation_approved')->name('reservation_approved')->middleware(['auth', 'verified']);
+Route::get('/reservations', 'Lacastilla_controller@reservations')->name('reservations');
+Route::get('/reservation_approved/{id}', 'Lacastilla_controller@reservation_approved')->name('reservation_approved');
+
+
+Route::get('/carousel_list', 'Lacastilla_controller@carousel_list')->name('carousel_list');
+Route::get('/carousel_status/{id}', 'Lacastilla_controller@carousel_status')->name('carousel_status');
+

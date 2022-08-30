@@ -14,5 +14,11 @@ class Carousel extends Model
         'title',
         'note',
         'image',
+        'status',
     ];
+
+    public function curator()
+    {
+        return $this->belongsTo('App\Models\User', 'curator_id');
+    }
 }

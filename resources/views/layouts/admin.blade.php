@@ -97,6 +97,13 @@
                 </a>
             </li>
 
+            <li class="nav-item {{ Nav::isRoute('carousel_list') }}">
+                <a class="nav-link" href="{{ route('carousel_list') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Carousel List') }}</span>
+                </a>
+            </li>
+
             <li class="nav-item {{ Nav::isRoute('services') }}">
                 <a class="nav-link" href="{{ route('services') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>

@@ -70,7 +70,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background:#8d221c">
-        <a class="navbar-brand" href="#">Lacastilla</a>
+        <a class="navbar-brand" href="#">La Castilla Museum</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -84,50 +84,60 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('booking') }}">Book</a>
                 </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                {{-- @if (Route::has('login'))
-                    <div class="top-right links">
-                        @auth
-                            <a style="color:white" href="{{ url('/home') }}">Home</a>
-                        @else
-                            
-                        @endauth
-                    </div>
-                @endif --}}
-                <div class="top-right links">
-                    <a style="color:white" href="{{ route('login') }}">Login</a>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                </li>
+                <li class="nav-item">
                     @if (Route::has('register'))
-                        <a style="color:white" href="{{ route('register') }}">Register</a>
+                        <a class="nav-link" href="{{ route('register') }}">Register</a>
                     @endif
-                </div>
-
-            </form>
+                </li>
+            </ul>
         </div>
     </nav>
     <br />
     <div class="content-fluid" style="margin-left:50px;margin-right:50px;">
-        <div class="card" style="width: 100%;">
-            <div class="card-body">
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            @if ($carousel_first)
-                                <img class="d-block w-100" src="{{ asset('upload_image/' . $carousel_first->image) }}"
-                                    alt="First slide">
-                            @else
-                                Carousel
-                            @endif
-                        </div>
-                        @if ($carousel)
-                            @foreach ($carousel as $data)
-                                <div class="carousel-item">
-                                    <img class="d-block w-100" src="{{ asset('upload_image/' . $data->image) }}"
-                                        alt="Second slide">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card" style="width: 100%;height:100%;">
+                    <div class="card-header">About Us</div>
+                    <div class="card-body">
+                        <p>
+                            What is Lorem Ipsum?
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                            galley of type and scrambled it to make a type specimen book. It has survived not only five
+                            centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                            passages, and more recently with desktop publishing software like Aldus PageMaker including
+                            versions of Lorem Ipsum.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card" style="width: 100%;">
+                    <div class="card-body">
+                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    @if ($carousel_first)
+                                        <img class="d-block w-100"
+                                            src="{{ asset('/storage/' . $carousel_first->image) }}" alt="First slide">
+                                    @else
+                                        Carousel
+                                    @endif
                                 </div>
-                            @endforeach
-                        @endif
+                                @if ($carousel)
+                                    @foreach ($carousel as $data)
+                                        <div class="carousel-item">
+                                            <img class="d-block w-100" src="{{ asset('/storage/' . $data->image) }}"
+                                                alt="Second slide">
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

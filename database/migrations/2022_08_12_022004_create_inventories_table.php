@@ -23,7 +23,6 @@ return new class extends Migration
             $table->Integer('number_of_pieces');
             $table->string('length');
             $table->string('width');
-            $table->string('dimension');
             $table->string('medium_and_material');
             $table->string('maker_artist');
             $table->string('location_of_signation');

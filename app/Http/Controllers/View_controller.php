@@ -16,8 +16,8 @@ class View_controller extends Controller
     public function index()
     {
         Auth::logout();
-        $carousel_first = Carousel::orderBy('id', 'desc')->limit(1)->first();
-        $carousel = Carousel::orderBy('id', 'desc')->get();
+        $carousel_first = Carousel::orderBy('id', 'desc')->where('status','!=','deactivated')->limit(1)->first();
+        $carousel = Carousel::orderBy('id', 'desc')->where('status','!=','deactivated')->get();
 
         $services_first = Services::orderBy('id', 'desc')->limit(1)->first();
         $services = Services::orderBy('id', 'desc')->get();

@@ -17,7 +17,10 @@ class Inventory extends Model
         'number_of_pieces',
         'length',
         'width',
-        'dimension',
+        'weight',
+        'height',
+        'diameter',
+        'reference_number',
         'medium_and_material',
         'maker_artist',
         'location_of_signation',
@@ -36,6 +39,7 @@ class Inventory extends Model
         'purchase_or_received',
         'personal_story_of_this_object',
         'inventory_image',
+
     ];
 
     public function curator()

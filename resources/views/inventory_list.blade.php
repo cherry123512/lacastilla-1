@@ -39,7 +39,7 @@
                             <div class="col-md-4">
                                 <div class="card" style="width: 100%;">
                                     <img class="card-img-top" height=200px;
-                                        src="{{ asset('upload_image/' . $data->inventory_image) }}" alt="Card image cap">
+                                        src="{{ asset('/storage/' . $data->inventory_image) }}" alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $data->description_title }}</h5>
                                         <p class="card-text">{{ $data->personal_story_of_this_object }}</p>
@@ -68,13 +68,16 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Curator</th>
+                                                                        <th>reference Number</th>
                                                                         <th>type_of_object</th>
                                                                         <th>location_of_object</th>
                                                                         <th>description_title</th>
                                                                         <th>number_of_pieces</th>
                                                                         <th>length</th>
                                                                         <th>width</th>
-                                                                        <th>dimension</th>
+                                                                        <th>weight</th>
+                                                                        <th>height</th>
+                                                                        <th>diameter</th>
                                                                         <th>medium_and_material</th>
                                                                         <th>maker_artist</th>
                                                                         <th>location_of_signation</th>
@@ -99,13 +102,16 @@
 
                                                                     <tr>
                                                                         <td>{{ $data->curator->name }}</td>
+                                                                        <td>{{ $data->reference_number }}</td>
                                                                         <td>{{ $data->type_of_object }}</td>
                                                                         <td>{{ $data->location_of_object }}</td>
                                                                         <td>{{ $data->description_title }}</td>
                                                                         <td>{{ $data->number_of_pieces }}</td>
                                                                         <td>{{ $data->length }}</td>
                                                                         <td>{{ $data->width }}</td>
-                                                                        <td>{{ $data->dimension }}</td>
+                                                                        <td>{{ $data->weight }}</td>
+                                                                        <td>{{ $data->height }}</td>
+                                                                        <td>{{ $data->diameter }}</td>
                                                                         <td>{{ $data->medium_and_material }}</td>
                                                                         <td>{{ $data->maker_artist }}</td>
                                                                         <td>{{ $data->location_of_signation }}</td>

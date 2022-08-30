@@ -72,41 +72,15 @@
                                     </span>
                                 @enderror
                             </div>
+                           
+
                             <div class="col-md-3">
-                                <input type="number" min="0"
+                                <input type="text" min="0"
                                     class="form-control form-control-user  @error('number_of_pieces') is-invalid @enderror"
-                                    name="number_of_pieces" placeholder="{{ __('No of Pcs') }}"
-                                    value="{{ old('number_of_pieces') }}" autofocus>
+                                    name="number_of_pieces" placeholder="{{ __('No of Pcs') }}" value="{{ old('number_of_pieces') }}"
+                                    autofocus>
 
                                 @error('number_of_pieces')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-
-
-                            <div class="col-md-3">
-                                <input type="text" min="0"
-                                    class="form-control form-control-user  @error('length') is-invalid @enderror"
-                                    name="length" placeholder="{{ __('Length') }}" value="{{ old('length') }}"
-                                    autofocus>
-
-                                @error('length')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-3">
-                                <input type="text" min="0"
-                                    class="form-control form-control-user  @error('width') is-invalid @enderror"
-                                    name="width" placeholder="{{ __('No of Pcs') }}" value="{{ old('width') }}"
-                                    autofocus>
-
-                                @error('width')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -116,17 +90,79 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <input type="text" min="0"
-                                        class="form-control form-control-user  @error('dimension') is-invalid @enderror"
-                                        name="dimension" placeholder="{{ __('Dimension') }}"
-                                        value="{{ old('dimension') }}" autofocus>
+                                        class="form-control form-control-user  @error('length') is-invalid @enderror"
+                                        name="length" placeholder="{{ __('length') }}"
+                                        value="{{ old('length') }}" autofocus>
 
-                                    @error('dimension')
+                                    @error('length')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text" min="0"
+                                        class="form-control form-control-user  @error('height') is-invalid @enderror"
+                                        name="height" placeholder="{{ __('height') }}"
+                                        value="{{ old('height') }}" autofocus>
+
+                                    @error('height')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text" min="0"
+                                        class="form-control form-control-user  @error('width') is-invalid @enderror"
+                                        name="width" placeholder="{{ __('width') }}"
+                                        value="{{ old('width') }}" autofocus>
+
+                                    @error('width')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text" min="0"
+                                        class="form-control form-control-user  @error('diameter') is-invalid @enderror"
+                                        name="diameter" placeholder="{{ __('diameter') }}"
+                                        value="{{ old('diameter') }}" autofocus>
+
+                                    @error('diameter')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text" min="0"
+                                        class="form-control form-control-user  @error('weight') is-invalid @enderror"
+                                        name="weight" placeholder="{{ __('weight') }}"
+                                        value="{{ old('weight') }}" autofocus>
+
+                                    @error('weight')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
 
                             <div class="col-md-3">
                                 <input type="text" min="0"
@@ -357,6 +393,8 @@
                                 </div>
                             </div>
 
+                          
+
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <input type="text" min="0"
@@ -365,6 +403,21 @@
                                         value="{{ old('purchase_or_received') }}" autofocus>
 
                                     @error('purchase_or_received')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text" min="0"
+                                        class="form-control form-control-user  @error('reference_number') is-invalid @enderror"
+                                        name="reference_number" placeholder="{{ __('Reference No') }}"
+                                        value="{{ old('reference_number') }}" autofocus>
+
+                                    @error('reference_number')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
