@@ -39,6 +39,7 @@ class Inventory extends Model
         'purchase_or_received',
         'personal_story_of_this_object',
         'inventory_image',
+        'adapted_to_another_used',
 
     ];
 

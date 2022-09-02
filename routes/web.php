@@ -83,4 +83,18 @@ Route::get('/reservation_approved/{id}', 'Lacastilla_controller@reservation_appr
 
 Route::get('/carousel_list', 'Lacastilla_controller@carousel_list')->name('carousel_list');
 Route::get('/carousel_status/{id}', 'Lacastilla_controller@carousel_status')->name('carousel_status');
+Route::get('/carousel_update/{id}', 'Lacastilla_controller@carousel_update')->name('carousel_update');
+Route::post('/carousel_update_process', 'Lacastilla_controller@carousel_update_process')->name('carousel_update_process');
+Route::post('/carousel_update_image', 'Lacastilla_controller@carousel_update_image')->name('carousel_update_image');
+
+
+
+
+Route::get('/services_update/{id}', 'Lacastilla_controller@services_update')->name('services_update');
+Route::post('/services_update_process', 'Lacastilla_controller@services_update_process')->name('services_update_process');
+Route::post('/services_update_image', 'Lacastilla_controller@services_update_image')->name('services_update_image');
+
+
+Route::get('/about_us/', 'Lacastilla_controller@about_us')->name('about_us');
+Route::post('/about_us_process', 'Lacastilla_controller@about_us_process')->name('about_us_process');
 

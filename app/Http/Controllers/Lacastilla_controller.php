@@ -7,8 +7,12 @@ use App\Models\Inventory;
 use App\Models\Carousel;
 use App\Models\Services;
 use App\Models\Message;
+use App\Models\About_us;
+
 use App\Mail\lacastilla_mail;
 use App\Mail\Reservation_approved;
+
+
 
 use App\Models\Reservations;
 use App\Models\schedule;
@@ -82,6 +86,8 @@ class Lacastilla_controller extends Controller
         // $inventory_image_file_type = $inventory_image->getClientmimeType();
         // $inventory_image->move(public_path() . '/upload_image/', $inventory_image_name);
 
+        //return $request->input();
+
         if ($request->file('inventory_image')) {
             $inventory_image = $request->file('inventory_image');
             $inventory_image_name = 'inventory_image-' . time() . '.' . $inventory_image->getClientOriginalExtension();
@@ -121,6 +127,7 @@ class Lacastilla_controller extends Controller
             'purchase_or_received' => $request->input('purchase_or_received'),
             'personal_story_of_this_object' => $request->input('personal_story_of_this_object'),
             'inventory_image' => $inventory_image_name,
+            'adapted_to_another_used' => 'adapted_to_another_used',
         ]);
 
         $inventory_save->save();
@@ -170,8 +177,10 @@ class Lacastilla_controller extends Controller
     public function services()
     {
         $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        $services = Services::get();
         return view('services', [
             'reservation_count' => $reservation_count,
+            'services' => $services,
         ]);
     }
 
@@ -203,7 +212,7 @@ class Lacastilla_controller extends Controller
 
         $service_save->save();
 
-        return redirect('services')->with('success', 'Successfully added a new carousel image');
+        return redirect('services')->with('success', 'Successfully added a new services');
     }
 
     public function message_submit(Request $request)
@@ -379,5 +388,97 @@ class Lacastilla_controller extends Controller
         }
 
         return redirect('carousel_list')->with('success', 'Successfully Carousel Status');
+    }
+
+    public function services_update($id)
+    {
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        $services = Services::find($id);
+        return view('services_update', [
+            'reservation_count' => $reservation_count,
+            'services' => $services,
+        ]);
+    }
+
+    public function services_update_process(Request $request)
+    {
+        //return $request->input();
+        Services::where('id', $request->input('services_id'))
+            ->update([
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'amount' => $request->input('amount'),
+            ]);
+
+        return redirect('services')->with('success', 'Successfully Updated Selected Services');
+    }
+
+    public function services_update_image(Request $request)
+    {
+        $service_image = $request->file('file');
+        $service_image_image_name = 'service_image-' . time() . '.' . $service_image->getClientOriginalExtension();
+        $path_service_image = $service_image->storeAs('public', $service_image_image_name);
+
+        Services::where('id', $request->input('services_id'))
+            ->update([
+                'service_image' => $service_image_image_name,
+            ]);
+
+        return redirect('services')->with('success', 'Successfully Updated Selected Services');
+    }
+
+    public function carousel_update($id)
+    {
+
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        $carousel = Carousel::find($id);
+        return view('carousel_update', [
+            'reservation_count' => $reservation_count,
+            'carousel' => $carousel,
+        ]);
+    }
+
+    public function carousel_update_process(Request $request)
+    {
+        Carousel::where('id', $request->input('carousel_id'))
+            ->update([
+                'title' => $request->input('title'),
+                'Note' => $request->input('note'),
+            ]);
+
+        return redirect('carousel_list')->with('success', 'Successfully Updated Selected Carousel');
+    }
+
+    public function carousel_update_image(Request $request)
+    {
+        $service_image = $request->file('file');
+        $service_image_image_name = 'carousel_image-' . time() . '.' . $service_image->getClientOriginalExtension();
+        $path_service_image = $service_image->storeAs('public', $service_image_image_name);
+
+        Carousel::where('id', $request->input('carousel_id'))
+            ->update([
+                'image' => $service_image_image_name,
+            ]);
+
+        return redirect('carousel_list')->with('success', 'Successfully Updated Selected Carousel');
+    }
+
+    public function about_us()
+    {
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        return view('about_us', [
+            'reservation_count' => $reservation_count,
+        ]);
+    }
+
+    public function about_us_process(Request $request)
+    {
+        $new = new About_us([
+            'about_us' => $request->input('about_us')
+        ]);
+
+        $new->save();
+
+        return redirect('about_us')->with('success', 'Successfully added new about us');
     }
 }

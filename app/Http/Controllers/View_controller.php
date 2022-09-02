@@ -6,6 +6,7 @@ use App\Models\Inventory;
 use App\Models\Carousel;
 use App\Models\Services;
 use App\Models\Schedule;
+use App\Models\About_us;
 use App\Models\Reservations;
 use App\Models\Reservation_details;
 use Illuminate\Http\Request;
@@ -21,11 +22,13 @@ class View_controller extends Controller
 
         $services_first = Services::orderBy('id', 'desc')->limit(1)->first();
         $services = Services::orderBy('id', 'desc')->get();
+        $about_us = About_us::get();
         return view('welcome', [
             'carousel' => $carousel,
             'services_first' => $services_first,
             'services' => $services,
             'carousel_first' => $carousel_first,
+            'about_us' => $about_us,
         ]);
     }
 

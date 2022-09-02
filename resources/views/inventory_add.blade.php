@@ -36,6 +36,20 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
+                                    <input type="text" min="0"
+                                        class="form-control form-control-user  @error('reference_number') is-invalid @enderror"
+                                        name="reference_number" placeholder="{{ __('Reference No') }}"
+                                        value="{{ old('reference_number') }}" autofocus>
+
+                                    @error('reference_number')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
                                     <input type="text"
                                         class="form-control form-control-user  @error('type_of_object') is-invalid @enderror"
                                         name="type_of_object" placeholder="{{ __('type of object') }}"
@@ -72,13 +86,13 @@
                                     </span>
                                 @enderror
                             </div>
-                           
+
 
                             <div class="col-md-3">
                                 <input type="text" min="0"
                                     class="form-control form-control-user  @error('number_of_pieces') is-invalid @enderror"
-                                    name="number_of_pieces" placeholder="{{ __('No of Pcs') }}" value="{{ old('number_of_pieces') }}"
-                                    autofocus>
+                                    name="number_of_pieces" placeholder="{{ __('No of Pcs') }}"
+                                    value="{{ old('number_of_pieces') }}" autofocus>
 
                                 @error('number_of_pieces')
                                     <span class="invalid-feedback" role="alert">
@@ -91,8 +105,8 @@
                                 <div class="form-group">
                                     <input type="text" min="0"
                                         class="form-control form-control-user  @error('length') is-invalid @enderror"
-                                        name="length" placeholder="{{ __('length') }}"
-                                        value="{{ old('length') }}" autofocus>
+                                        name="length" placeholder="{{ __('length') }}" value="{{ old('length') }}"
+                                        autofocus>
 
                                     @error('length')
                                         <span class="invalid-feedback" role="alert">
@@ -106,8 +120,8 @@
                                 <div class="form-group">
                                     <input type="text" min="0"
                                         class="form-control form-control-user  @error('height') is-invalid @enderror"
-                                        name="height" placeholder="{{ __('height') }}"
-                                        value="{{ old('height') }}" autofocus>
+                                        name="height" placeholder="{{ __('height') }}" value="{{ old('height') }}"
+                                        autofocus>
 
                                     @error('height')
                                         <span class="invalid-feedback" role="alert">
@@ -121,8 +135,8 @@
                                 <div class="form-group">
                                     <input type="text" min="0"
                                         class="form-control form-control-user  @error('width') is-invalid @enderror"
-                                        name="width" placeholder="{{ __('width') }}"
-                                        value="{{ old('width') }}" autofocus>
+                                        name="width" placeholder="{{ __('width') }}" value="{{ old('width') }}"
+                                        autofocus>
 
                                     @error('width')
                                         <span class="invalid-feedback" role="alert">
@@ -136,8 +150,8 @@
                                 <div class="form-group">
                                     <input type="text" min="0"
                                         class="form-control form-control-user  @error('diameter') is-invalid @enderror"
-                                        name="diameter" placeholder="{{ __('diameter') }}"
-                                        value="{{ old('diameter') }}" autofocus>
+                                        name="diameter" placeholder="{{ __('diameter') }}" value="{{ old('diameter') }}"
+                                        autofocus>
 
                                     @error('diameter')
                                         <span class="invalid-feedback" role="alert">
@@ -151,8 +165,8 @@
                                 <div class="form-group">
                                     <input type="text" min="0"
                                         class="form-control form-control-user  @error('weight') is-invalid @enderror"
-                                        name="weight" placeholder="{{ __('weight') }}"
-                                        value="{{ old('weight') }}" autofocus>
+                                        name="weight" placeholder="{{ __('weight') }}" value="{{ old('weight') }}"
+                                        autofocus>
 
                                     @error('weight')
                                         <span class="invalid-feedback" role="alert">
@@ -200,7 +214,8 @@
                             <div class="col-md-3">
                                 <input type="text" min="0"
                                     class="form-control form-control-user  @error('location_of_signation') is-invalid @enderror"
-                                    name="location_of_signation" placeholder="{{ __('Location of Signation') }}"
+                                    name="location_of_signation"
+                                    placeholder="{{ __('Location of Signation/Makers Mark') }}"
                                     value="{{ old('location_of_signation') }}" autofocus>
 
                                 @error('location_of_signation')
@@ -212,12 +227,12 @@
 
 
                             <div class="col-md-3">
-                                <input type="date" min="0"
-                                    class="form-control form-control-user  @error('date_of_birth') is-invalid @enderror"
-                                    name="date_of_birth" placeholder="{{ __('date_of_birth') }}"
-                                    value="{{ old('date_of_birth') }}" autofocus>
+                                <input type="number" min="0"
+                                    class="form-control form-control-user  @error('age_of_artifact') is-invalid @enderror"
+                                    name="age_of_artifact" placeholder="{{ __('Age of Artifact') }}"
+                                    value="{{ old('age_of_artifact') }}" autofocus>
 
-                                @error('date_of_birth')
+                                @error('age_of_artifact')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -246,7 +261,7 @@
                                     <input type="text" min="0"
                                         class="form-control form-control-user  @error('writing_other_than_signature') is-invalid @enderror"
                                         name="writing_other_than_signature"
-                                        placeholder="{{ __('Writing other than signature') }}"
+                                        placeholder="{{ __('Writing other than signature and date') }}"
                                         value="{{ old('writing_other_than_signature') }}" autofocus>
 
                                     @error('writing_other_than_signature')
@@ -276,7 +291,7 @@
                                 <div class="form-group">
                                     <input type="text" min="0"
                                         class="form-control form-control-user  @error('place_collected') is-invalid @enderror"
-                                        name="place_collected" placeholder="{{ __('Place collected') }}"
+                                        name="place_collected" placeholder="{{ __('Place collected/Received') }}"
                                         value="{{ old('place_collected') }}" autofocus>
 
                                     @error('place_collected')
@@ -289,9 +304,9 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="date" min="0"
+                                    <input type="text"
                                         class="form-control form-control-user  @error('date_received') is-invalid @enderror"
-                                        name="date_received" placeholder="{{ __('Date received') }}"
+                                        name="date_received" placeholder="{{ __('Date Collected/Received') }}"
                                         value="{{ old('date_received') }}" autofocus>
 
                                     @error('date_received')
@@ -305,10 +320,24 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="text" min="0"
+                                    {{-- <input type="text" min="0"
                                         class="form-control form-control-user  @error('original_as_shown') is-invalid @enderror"
                                         name="original_as_shown" placeholder="{{ __('Original as shown') }}"
-                                        value="{{ old('original_as_shown') }}" autofocus>
+                                        value="{{ old('original_as_shown') }}" autofocus> --}}
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="original_as_shown" type="checkbox" value="original_as_shown"
+                                            id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Original as shown
+                                        </label>
+                                    </div>
+                                    <br />
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="adapted_to_another_used" value="adapted_to_another_used" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                          Adapted to another Used. Objects's Original Used
+                                        </label>
+                                      </div>
 
                                     @error('original_as_shown')
                                         <span class="invalid-feedback" role="alert">
@@ -382,8 +411,8 @@
                                 <div class="form-group">
                                     <input type="text" min="0"
                                         class="form-control form-control-user  @error('history') is-invalid @enderror"
-                                        name="history" placeholder="{{ __('History') }}" value="{{ old('history') }}"
-                                        autofocus>
+                                        name="history" placeholder="{{ __('History or Provinance') }}"
+                                        value="{{ old('history') }}" autofocus>
 
                                     @error('history')
                                         <span class="invalid-feedback" role="alert">
@@ -393,13 +422,14 @@
                                 </div>
                             </div>
 
-                          
+
 
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <input type="text" min="0"
                                         class="form-control form-control-user  @error('purchase_or_received') is-invalid @enderror"
-                                        name="purchase_or_received" placeholder="{{ __('Purchase or received') }}"
+                                        name="purchase_or_received"
+                                        placeholder="{{ __('How was this purchase or Received') }}"
                                         value="{{ old('purchase_or_received') }}" autofocus>
 
                                     @error('purchase_or_received')
@@ -410,26 +440,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <input type="text" min="0"
-                                        class="form-control form-control-user  @error('reference_number') is-invalid @enderror"
-                                        name="reference_number" placeholder="{{ __('Reference No') }}"
-                                        value="{{ old('reference_number') }}" autofocus>
 
-                                    @error('reference_number')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
 
                             <div class="col-md-8">
                                 <textarea name="personal_story_of_this_object"
                                     class="form-control @error('personal_story_of_this_object') is-invalid @enderror" id="" cols="30"
                                     rows="10">
-                                    Personal Story {{ old('personal_story_of_this_object') }}
+                                    Personal Story in Relation to this object {{ old('personal_story_of_this_object') }}
                                 </textarea>
 
                                 @error('personal_story_of_this_object')

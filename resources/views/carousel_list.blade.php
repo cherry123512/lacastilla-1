@@ -38,6 +38,7 @@
                                 <th>note</th>
                                 <th>image</th>
                                 <th>status</th>
+                                <th>option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,17 +46,44 @@
                                 <tr>
                                     <td>{{ $data->title }}</td>
                                     <td>{{ $data->Note }}</td>
-                                    <td><img src="{{ asset('/storage/' . $data->image) }}" class="img img-thumbnail"
-                                            alt=""></td>
+                                    <td>
+
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal"
+                                            data-target="#exampleModal{{ $data->id }}">
+                                            Show Carousel Image
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal{{ $data->id }}" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Carousel Image</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img src="{{ asset('/storage/' . $data->image) }}"
+                                                            class="img img-thumbnail" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>
                                         @if ($data->status == '')
                                             <a href="{{ url('carousel_status', $data->id) }}"
-                                                class="btn btn-sm btn-success">Actived</a>
+                                                class="btn btn-sm btn-success btn-block">Actived</a>
                                         @else
                                             <a href="{{ url('carousel_status', $data->id) }}"
-                                                class="btn btn-sm btn-danger">Deactivated</a>
+                                                class="btn btn-sm btn-danger  btn-block">Deactivated</a>
                                         @endif
                                     </td>
+                                    <td><a href="{{ url('carousel_update', $data->id) }}" class="btn btn-sm btn-warning btn-block">Update</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -69,6 +69,13 @@
                 </a>
             </li> --}}
 
+            <li class="nav-item {{ Nav::isRoute('about_us') }}">
+                <a class="nav-link" href="{{ route('about_us') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('About Us') }}</span>
+                </a>
+            </li>
+
             <li class="nav-item {{ Nav::isRoute('schedule') }}">
                 <a class="nav-link" href="{{ route('schedule') }}">
                     <i class="fas fa-fw fa-user"></i>
@@ -87,6 +94,13 @@
                 <a class="nav-link" href="{{ route('inventory_list') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
                     <span>{{ __('Inventory') }}</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('inventory_add') }}">
+                <a class="nav-link" href="{{ route('inventory_add') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Inventory (+)') }}</span>
                 </a>
             </li>
 
