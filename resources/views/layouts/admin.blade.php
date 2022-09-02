@@ -62,12 +62,12 @@
             </div> --}}
 
             <!-- Nav Item - Profile -->
-            <li class="nav-item {{ Nav::isRoute('profile') }}">
+            {{-- <li class="nav-item {{ Nav::isRoute('profile') }}">
                 <a class="nav-link" href="{{ route('profile') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>{{ __('Profile') }}</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="nav-item {{ Nav::isRoute('schedule') }}">
                 <a class="nav-link" href="{{ route('schedule') }}">
