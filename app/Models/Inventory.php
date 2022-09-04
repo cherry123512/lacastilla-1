@@ -47,4 +47,9 @@ class Inventory extends Model
     {
         return $this->belongsTo('App\Models\User', 'curator_id');
     }
+
+    public function log()
+    {
+        return $this->hasMany('App\Models\Inventory_logs', 'inventory_id')->orderBy('id','desc');
+    }
 }

@@ -48,6 +48,22 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            {{-- <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text"
+                                        class="form-control form-control-user  @error('date_of_birth') is-invalid @enderror"
+                                        name="date_of_birth" placeholder="{{ __('Age of artifact') }}"
+                                        value="{{ old('date_of_birth') }}" autofocus>
+
+                                    @error('date_of_birth')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div> --}}
+
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <input type="text"
@@ -228,11 +244,11 @@
 
                             <div class="col-md-3">
                                 <input type="number" min="0"
-                                    class="form-control form-control-user  @error('age_of_artifact') is-invalid @enderror"
-                                    name="age_of_artifact" placeholder="{{ __('Age of Artifact') }}"
-                                    value="{{ old('age_of_artifact') }}" autofocus>
+                                    class="form-control form-control-user  @error('date_of_birth') is-invalid @enderror"
+                                    name="date_of_birth" placeholder="{{ __('Age of Artifact') }}"
+                                    value="{{ old('date_of_birth') }}" autofocus>
 
-                                @error('age_of_artifact')
+                                @error('date_of_birth')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

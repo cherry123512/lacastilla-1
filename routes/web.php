@@ -63,6 +63,43 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('/lacastilla_admin', 'Lacastilla_controller@lacastilla_admin')->name('lacastilla_admin');
 Route::get('/inventory_list', 'Lacastilla_controller@inventory_list')->name('inventory_list');
+
+Route::post('/inventory_list_update_reference_number/', 'Lacastilla_controller@inventory_list_update_reference_number')->name('inventory_list_update_reference_number');
+Route::post('/inventory_list_update_type_object/', 'Lacastilla_controller@inventory_list_update_type_object')->name('inventory_list_update_type_object');
+Route::post('/inventory_list_update_location_object/', 'Lacastilla_controller@inventory_list_update_location_object')->name('inventory_list_update_location_object');
+Route::post('/inventory_list_update_description_title/', 'Lacastilla_controller@inventory_list_update_description_title')->name('inventory_list_update_description_title');
+Route::post('/inventory_list_update_number_of_pieces/', 'Lacastilla_controller@inventory_list_update_number_of_pieces')->name('inventory_list_update_number_of_pieces');
+Route::post('/inventory_list_update_lenght/', 'Lacastilla_controller@inventory_list_update_lenght')->name('inventory_list_update_lenght');
+Route::post('/inventory_list_update_width/', 'Lacastilla_controller@inventory_list_update_width')->name('inventory_list_update_width');
+Route::post('/inventory_list_update_weight/', 'Lacastilla_controller@inventory_list_update_weight')->name('inventory_list_update_weight');
+Route::post('/inventory_list_update_height/', 'Lacastilla_controller@inventory_list_update_height')->name('inventory_list_update_height');
+Route::post('/inventory_list_update_diameter/', 'Lacastilla_controller@inventory_list_update_diameter')->name('inventory_list_update_diameter');
+Route::post('/inventory_list_update_medium_material/', 'Lacastilla_controller@inventory_list_update_medium_material')->name('inventory_list_update_medium_material');
+Route::post('/inventory_list_update_maker_artist/', 'Lacastilla_controller@inventory_list_update_maker_artist')->name('inventory_list_update_maker_artist');
+Route::post('/inventory_list_update_location_of_signature/', 'Lacastilla_controller@inventory_list_update_location_of_signature')->name('inventory_list_update_location_of_signature');
+Route::post('/inventory_list_update_date_of_birth/', 'Lacastilla_controller@inventory_list_update_date_of_birth')->name('inventory_list_update_date_of_birth');
+Route::post('/inventory_list_update_location_of_date_on_object/', 'Lacastilla_controller@inventory_list_update_location_of_date_on_object')->name('inventory_list_update_location_of_date_on_object');
+Route::post('/inventory_list_update_writing_other_than_signature/', 'Lacastilla_controller@inventory_list_update_writing_other_than_signature')->name('inventory_list_update_writing_other_than_signature');
+Route::post('/inventory_list_update_place_collected/', 'Lacastilla_controller@inventory_list_update_place_collected')->name('inventory_list_update_place_collected');
+Route::post('/inventory_list_update_date_received/', 'Lacastilla_controller@inventory_list_update_date_received')->name('inventory_list_update_date_received');
+Route::post('/inventory_list_update_original_as_shown/', 'Lacastilla_controller@inventory_list_update_original_as_shown')->name('inventory_list_update_original_as_shown');
+Route::post('/inventory_list_update_object_original_used/', 'Lacastilla_controller@inventory_list_update_object_original_used')->name('inventory_list_update_object_original_used');
+Route::post('/inventory_list_update_date_receipt/', 'Lacastilla_controller@inventory_list_update_date_receipt')->name('inventory_list_update_date_receipt');
+Route::post('/inventory_list_update_item_description/', 'Lacastilla_controller@inventory_list_update_item_description')->name('inventory_list_update_item_description');
+Route::post('/inventory_list_update_condition_of_object/', 'Lacastilla_controller@inventory_list_update_condition_of_object')->name('inventory_list_update_condition_of_object');
+Route::post('/inventory_list_update_history/', 'Lacastilla_controller@inventory_list_update_history')->name('inventory_list_update_history');
+Route::post('/inventory_list_update_purchase_or_received/', 'Lacastilla_controller@inventory_list_update_purchase_or_received')->name('inventory_list_update_purchase_or_received');
+Route::post('/inventory_list_update_personal_story_of_this_object/', 'Lacastilla_controller@inventory_list_update_personal_story_of_this_object')->name('inventory_list_update_personal_story_of_this_object');
+
+
+
+
+
+
+
+
+
+
 Route::get('/inventory_add', 'Lacastilla_controller@inventory_add')->name('inventory_add');
 Route::post('/inventory_add_save', 'Lacastilla_controller@inventory_add_save')->name('inventory_add_save');
 Route::get('/carousel', 'Lacastilla_controller@carousel')->name('carousel');
@@ -97,4 +134,6 @@ Route::post('/services_update_image', 'Lacastilla_controller@services_update_ima
 
 Route::get('/about_us/', 'Lacastilla_controller@about_us')->name('about_us');
 Route::post('/about_us_process', 'Lacastilla_controller@about_us_process')->name('about_us_process');
+Route::get('/about_us_update/{id}', 'Lacastilla_controller@about_us_update')->name('about_us_update');
+Route::post('/about_us_update_process', 'Lacastilla_controller@about_us_update_process')->name('about_us_update_process');
 

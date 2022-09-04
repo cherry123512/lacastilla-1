@@ -8,6 +8,7 @@ use App\Models\Carousel;
 use App\Models\Services;
 use App\Models\Message;
 use App\Models\About_us;
+use App\Models\Inventory_logs;
 
 use App\Mail\lacastilla_mail;
 use App\Mail\Reservation_approved;
@@ -33,6 +34,8 @@ class Lacastilla_controller extends Controller
     {
         $inventory = Inventory::get();
         $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+
+       
         return view('inventory_list', [
             'inventory' => $inventory,
             'reservation_count' => $reservation_count,
@@ -466,13 +469,18 @@ class Lacastilla_controller extends Controller
     public function about_us()
     {
         $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        $about_us = About_us::latest()->first();
+        $about_count = About_us::count();
         return view('about_us', [
             'reservation_count' => $reservation_count,
+            'about_us' => $about_us,
+            'about_count' => $about_count,
         ]);
     }
 
     public function about_us_process(Request $request)
     {
+        // return $request->input();
         $new = new About_us([
             'about_us' => $request->input('about_us')
         ]);
@@ -481,4 +489,497 @@ class Lacastilla_controller extends Controller
 
         return redirect('about_us')->with('success', 'Successfully added new about us');
     }
+
+    public function about_us_update($id)
+    {
+        $reservation_count = Reservations::where('status', 'Pending Approval')->count();
+        $about_us = About_us::find($id);
+        return view('about_us_update', [
+            'reservation_count' => $reservation_count,
+            'about_us' => $about_us,
+        ]);
+    }
+
+    public function about_us_update_process(Request $request)
+    {
+        About_us::where('id', $request->input('about_us_id'))
+            ->update([
+                'about_us' => $request->input('about_us'),
+            ]);
+
+        return redirect('about_us')->with('success', 'Successfully Updated About Us');
+    }
+
+    public function inventory_list_update_reference_number(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'reference_number' => $request->input('reference_number'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change Reference number to ' . $request->input('reference_number'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated Reference Number');
+    }
+
+    public function inventory_list_update_type_object(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'type_of_object' => $request->input('type_of_object'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change Type of Object to ' . $request->input('type_of_object'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated Type of Object');
+    }
+
+    public function inventory_list_update_location_object(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'location_of_object' => $request->input('location_of_object'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change Location of Object to ' . $request->input('location_of_object'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated Location of Object');
+    }
+
+    public function inventory_list_update_description_title(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'description_title' => $request->input('description_title'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change Description/Title to ' . $request->input('description_title'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated Description/Title');
+    }
+
+    public function inventory_list_update_number_of_pieces(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'number_of_pieces' => $request->input('number_of_pieces'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change Number of Pieces to ' . $request->input('number_of_pieces'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated Number of Pieces');
+    }
+
+    public function inventory_list_update_lenght(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'length' => $request->input('lenght'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change Lenght to ' . $request->input('lenght'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated Lenght');
+    }
+
+    public function inventory_list_update_width(Request $request)
+    {
+        //return $request->input();
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'width' => $request->input('width'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change Width to ' . $request->input('width'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated Width');
+    }
+
+    public function inventory_list_update_weight(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'weight' => $request->input('weight'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change weight to ' . $request->input('weight'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated weight');
+    }
+
+    public function inventory_list_update_height(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'height' => $request->input('height'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change height to ' . $request->input('height'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated height');
+    }
+
+    public function inventory_list_update_diameter(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'diameter' => $request->input('diameter'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change diameter to ' . $request->input('diameter'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated diameter');
+    }
+
+    public function inventory_list_update_medium_material(Request $request)
+    {
+        //return $request->input();
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'medium_and_material' => $request->input('medium_and_material'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change medium and material to ' . $request->input('medium_and_material'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated medium and material');
+    }
+
+    public function inventory_list_update_maker_artist(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'maker_artist' => $request->input('maker_artist'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change maker/artist to ' . $request->input('maker_artist'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated maker/artist');
+    }
+
+    public function inventory_list_update_location_of_signature(Request $request)
+    {
+        // return $request->input();
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'location_of_signation' => $request->input('location_of_signation'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change location of signature to ' . $request->input('location_of_signation'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated location of signature');
+    }
+
+    public function inventory_list_update_date_of_birth(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'date_of_birth' => $request->input('date_of_birth'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change date of birth to ' . $request->input('date_of_birth'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated date of birth');
+    }
+
+    public function inventory_list_update_location_of_date_on_object(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'location_of_date_on_object' => $request->input('location_of_date_on_object'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change location of date on object to ' . $request->input('location_of_date_on_object'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated location of date on object');
+    }
+
+    public function inventory_list_update_writing_other_than_signature(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'writing_other_than_signature' => $request->input('writing_other_than_signature'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change writing other than signature to ' . $request->input('writing_other_than_signature'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated writing other than signature');
+    }
+
+    public function inventory_list_update_place_collected(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'place_collected' => $request->input('place_collected'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change place collected to ' . $request->input('place_collected'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated place collected');
+    }
+
+    public function inventory_list_update_date_received(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'date_received' => $request->input('date_received'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change date received to ' . $request->input('date_received'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated date received');
+    }
+
+    public function inventory_list_update_original_as_shown(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'original_as_shown' => $request->input('original_as_shown'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change original as shown to ' . $request->input('original_as_shown'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated original as shown');
+    }
+
+    public function inventory_list_update_object_original_used(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'object_original_used' => $request->input('object_original_used'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change object original to ' . $request->input('object_original_used'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated object original used');
+    }
+
+    public function inventory_list_update_date_receipt(Request $request)
+    {
+        //return $request->input();
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'receipt' => $request->input('receipt'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change date receipt to ' . $request->input('receipt'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated date receipt used');
+    }
+
+    public function inventory_list_update_item_description(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'item_description' => $request->input('item_description'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change item description to ' . $request->input('item_description'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated item description used');
+    }
+
+    public function inventory_list_update_condition_of_object(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'condition_of_object' => $request->input('condition_of_object'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change condition of object to ' . $request->input('condition_of_object'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated condition of object');
+    }
+
+    public function inventory_list_update_history(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'history' => $request->input('history'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change history to ' . $request->input('history'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated history');
+    }
+
+    public function inventory_list_update_purchase_or_received(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'purchase_or_received' => $request->input('purchase_or_received'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change purchase_or_received to ' . $request->input('purchase_or_received'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated purchase_or_received');
+    }
+
+    public function inventory_list_update_personal_story_of_this_object(Request $request)
+    {
+        Inventory::where('id', $request->input('inventory_id'))
+            ->update([
+                'personal_story_of_this_object' => $request->input('personal_story_of_this_object'),
+            ]);
+
+        $new = new Inventory_logs([
+            'curator_id' => auth()->user()->id,
+            'inventory_id' => $request->input('inventory_id'),
+            'logs' => 'Change personal_story_of_this_object to ' . $request->input('personal_story_of_this_object'),
+        ]);
+
+        $new->save();
+
+        return redirect('inventory_list')->with('success', 'Successfully Updated personal_story_of_this_object');
+    }
+
 }

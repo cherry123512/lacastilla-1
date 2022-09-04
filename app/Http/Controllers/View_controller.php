@@ -22,7 +22,7 @@ class View_controller extends Controller
 
         $services_first = Services::orderBy('id', 'desc')->limit(1)->first();
         $services = Services::orderBy('id', 'desc')->get();
-        $about_us = About_us::get();
+        $about_us = About_us::latest()->first();
         return view('welcome', [
             'carousel' => $carousel,
             'services_first' => $services_first,

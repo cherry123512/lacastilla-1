@@ -3,26 +3,36 @@
 @section('main-content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="col-xl-6 col-lg-6 col-md-6">
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block">
-                                <img src="{{ asset('upload_image/lacastilla_logo.png') }}" alt="">
-                            </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">{{ __('Register') }}</h1>
-                                    </div>
-
+                                    <img src="{{ asset('upload_image/97778307_4046907505326833_5487494686908088320_n (1).jpg') }}"
+                                    class="img img-thumbnail" style="border:0px;" alt="">
+                                    <br ><br/>
                                     <form method="POST" action="{{ route('register') }}" class="user">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                                         <div class="form-group">
                                             <input type="text"
-                                                class="form-control form-control-user  @error('name') is-invalid @enderror"
-                                                name="name" placeholder="{{ __('Name') }}" value="{{ old('name') }}"
+                                                class="form-control form-control-user  @error('first_name') is-invalid @enderror"
+                                                name="first_name" placeholder="{{ __('First Name') }}" value="{{ old('first_name') }}"
+                                                autofocus>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="text"
+                                                class="form-control form-control-user  @error('middle_name') is-invalid @enderror"
+                                                name="middle_name" placeholder="{{ __('Middle Name') }}" value="{{ old('middle_name') }}"
+                                                autofocus>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="text"
+                                                class="form-control form-control-user  @error('last_name') is-invalid @enderror"
+                                                name="last_name" placeholder="{{ __('Name') }}" value="{{ old('last_name') }}"
                                                 autofocus>
                                         </div>
 

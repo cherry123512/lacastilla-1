@@ -51,7 +51,7 @@
                             <tbody>
                                 @foreach ($reservations as $data)
                                     <tr>
-                                        <td>{{ $data->user->name }}</td>
+                                        <td>{{ $data->user->first_name}} {{ $data->user->middle_name}} {{ $data->user->last_name}}</td>
                                         <td>{{ $data->user->email }}</td>
                                         <td>{{ $data->user->contact_number }}</td>
                                         <td>{{ $data->sched_details->date }}</td>
@@ -61,8 +61,8 @@
                                         <td>{{ $data->validation_date }}</td>
                                         <td>
                                             @if ($data->curator_id)
-                                                {{ $data->curator->name }}
-                                            @endif
+                                                {{ $data->curator->first_name }}   {{ $data->curator->middle_name }}
+                                                {{ $data->curator->last_name }}                                            @endif
                                         </td>
                                         <td>{{ $data->remarks }}</td>
                                         <td>

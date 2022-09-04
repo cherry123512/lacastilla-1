@@ -2,20 +2,21 @@
 
 @section('main-content')
     <div class="container">
+
         <div class="row justify-content-center">
-            <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="col-xl-6 col-lg-6 col-md-6">
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block">
-                                <img src="{{ asset('upload_image/lacastilla_logo.png') }}" alt="">
-                            </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
+                                
                                 <div class="p-5">
-                                    <div class="text-center">
+                                    <img src="{{ asset('upload_image/97778307_4046907505326833_5487494686908088320_n (1).jpg') }}"
+                                    class="img img-thumbnail" style="border:0px;" alt="">
+                                    {{-- <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">{{ __('Login') }}</h1>
-                                    </div>
-
+                                    </div> --}}
+                                    <br /><br />
                                     @if ($errors->any())
                                         <div class="alert alert-danger border-left-danger" role="alert">
                                             <ul class="pl-4 my-2">
@@ -36,8 +37,8 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="password"  id="myInput" class="form-control form-control-user" name="password"
-                                                placeholder="{{ __('Password') }}" required>
+                                            <input type="password" id="myInput" class="form-control form-control-user"
+                                                name="password" placeholder="{{ __('Password') }}" required>
                                         </div>
 
                                         <div class="form-group">

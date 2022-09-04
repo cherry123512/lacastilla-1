@@ -102,7 +102,7 @@
                 <div class="card" style="width: 100%;height:100%;">
                     <div class="card-header">About Us</div>
                     <div class="card-body">
-                        <p>
+                        <p style="text-align:justify">
                            {{ $about_us->about_us }}
                         </p>
                     </div>
