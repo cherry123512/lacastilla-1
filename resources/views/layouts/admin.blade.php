@@ -86,7 +86,8 @@
             <li class="nav-item {{ Nav::isRoute('reservations') }}">
                 <a class="nav-link" href="{{ route('reservations') }}">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>{{ __('Reservation') }} </span><span class="badge badge-light">{{ $reservation_count }}</span>
+                    <span>{{ __('Reservation') }} </span><span
+                        class="badge badge-light">{{ $reservation_count }}</span>
                 </a>
             </li>
 
@@ -333,9 +334,9 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span
-                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->first_name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }}</span>
-                                <figure class="img-profile rounded-circle avatar font-weight-bold"
-                                    data-initial="{{ Auth::user()->first_name[0] }}"></figure>
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span> 
+                                {{-- <figure class="img-profile rounded-circle avatar font-weight-bold"
+                                    data-initial="Admin"></figure> --}}
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -353,8 +354,7 @@
                                     {{ __('Activity Log') }}
                                 </a>
                                 <div class="dropdown-divider"></div> --}}
-                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                    data-target="#logoutModal">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Logout') }}
                                 </a>

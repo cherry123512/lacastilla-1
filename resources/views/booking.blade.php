@@ -86,12 +86,14 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ url('booking') }}">Book</a>
                 </li>
-                @guest
-                @else
+                @if (isset(auth()->user()->id))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('client_reservation') }}">Reservations</a>
                     </li>
-                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('logout') }}">Logout</a>
+                    </li>
+                @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
                     </li>
@@ -100,118 +102,118 @@
                             <a class="nav-link" href="{{ route('register') }}">Register</a>
                         @endif
                     </li>
+                @endif
+            </ul>
 
-                </ul>
 
-                
-                </div>
-            </nav>
-            <br />
-            <div class="content-fluid" style="margin-left:50px;margin-right:50px;">
-                <div class="card" style="width: 100%;">
-                    <h6 class="card-header">Reserved Lacastilla Tour Now!</h6>
-                    <div class="card-body">
-                        @guest
-                            Please Login First.<a href="{{ url('login') }}">Click here to login.</a>
-                        @else
-                            <form action="{{ route('booking_process') }}" method="post">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        @if (session('success'))
-                                            <div class="alert alert-success border-left-success" role="alert">
-                                                {{ session('success') }}
-                                            </div>
-                                        @endif
+        </div>
+    </nav>
+    <br />
+    <div class="content-fluid" style="margin-left:50px;margin-right:50px;">
+        <div class="card" style="width: 100%;">
+            <h6 class="card-header">Reserved Lacastilla Tour Now!</h6>
+            <div class="card-body">
+                @guest
+                    Please Login First.<a href="{{ url('login') }}">Click here to login.</a>
+                @else
+                    <form action="{{ route('booking_process') }}" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-12">
+                                @if (session('success'))
+                                    <div class="alert alert-success border-left-success" role="alert">
+                                        {{ session('success') }}
                                     </div>
-                                    <div class="col-md-4">
-                                        <label for="available_schedules">Available Schedules:</label>
-                                        <select name="available_schedules" id="available_schedules"
-                                            class="form-control @error('available_schedules') is-invalid @enderror">
-                                            <option value="" default>Select</option>
-                                            @foreach ($sched as $data)
-                                                @foreach ($data->schedule_details as $details)
-                                                    <option value="{{ $details->id }}"
-                                                        {{ old('available_schedules') == $data->id ? 'selected' : '' }}>
-                                                        {{ date('F j, Y', strtotime($details->date)) . ' ' . date('h:i:s a', strtotime($details->time_from)) . ' - ' . date('h:i:s a', strtotime($details->time_to)) }}
-                                                    </option>
-                                                @endforeach
-                                            @endforeach
-                                        </select>
+                                @endif
+                            </div>
+                            <div class="col-md-4">
+                                <label for="available_schedules">Available Schedules:</label>
+                                <select name="available_schedules" id="available_schedules"
+                                    class="form-control @error('available_schedules') is-invalid @enderror">
+                                    <option value="" default>Select</option>
+                                    @foreach ($sched as $data)
+                                        @foreach ($data->schedule_details as $details)
+                                            <option value="{{ $details->id }}"
+                                                {{ old('available_schedules') == $data->id ? 'selected' : '' }}>
+                                                {{ date('F j, Y', strtotime($details->date)) . ' ' . date('h:i:s a', strtotime($details->time_from)) . ' - ' . date('h:i:s a', strtotime($details->time_to)) }}
+                                            </option>
+                                        @endforeach
+                                    @endforeach
+                                </select>
 
-                                        @error('available_schedules')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="services">Services:</label>
-                                        <select class="selectpicker form-control @error('services') is-invalid @enderror" multiple
-                                            data-live-search="true" name="services[]" id="services">
-                                            <option value="" default>Select</option>
-                                            @foreach ($services as $data)
-                                                <option value="{{ $data->id }}"
-                                                    {{ old('services') == $data->id ? 'selected' : '' }}>{{ $data->title }} -
-                                                    ₱{{ number_format($data->amount, 2, '.', ',') }}</option>
-                                            @endforeach
-                                        </select>
+                                @error('available_schedules')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label for="services">Services:</label>
+                                <select class="selectpicker form-control @error('services') is-invalid @enderror" multiple
+                                    data-live-search="true" name="services[]" id="services">
+                                    <option value="" default>Select</option>
+                                    @foreach ($services as $data)
+                                        <option value="{{ $data->id }}"
+                                            {{ old('services') == $data->id ? 'selected' : '' }}>{{ $data->title }} -
+                                            ₱{{ number_format($data->amount, 2, '.', ',') }}</option>
+                                    @endforeach
+                                </select>
 
-                                        @error('services')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="number_of_attending_persons">Number of attending persons:</label>
-                                        <input type="text"
-                                            class="form-control @error('number_of_attending_persons') is-invalid @enderror"
-                                            {{ old('number_of_attending_persons') }}" id="number_of_attending_persons"
-                                            name="number_of_attending_persons">
+                                @error('services')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label for="number_of_attending_persons">Number of attending persons:</label>
+                                <input type="text"
+                                    class="form-control @error('number_of_attending_persons') is-invalid @enderror"
+                                    {{ old('number_of_attending_persons') }}" id="number_of_attending_persons"
+                                    name="number_of_attending_persons">
 
-                                        @error('number_of_attending_persons')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-12">
-                                        <br />
-                                        <button type="submit" class="btn btn-sm btn-danger float-right">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                            @endif
-
-
-
-
+                                @error('number_of_attending_persons')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-12">
+                                <br />
+                                <button type="submit" class="btn btn-sm btn-danger float-right">Submit</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+                    @endif
+
+
+
 
                 </div>
+            </div>
 
-                <br /><br /><br /><br />
-                <br /><br /><br /><br /><br /><br /><br /><br />
-                <br /><br /><br />
-                <div class="fixed-bottom-sm" style="background:#8d221c">
-                    <p style="color:white;text-align:center">La-castilla@2022 All Rights Reserved.</p>
-                </div>
+        </div>
+
+        <br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br />
+        <div class="fixed-bottom-sm" style="background:#8d221c">
+            <p style="color:white;text-align:center">La-castilla@2022 All Rights Reserved.</p>
+        </div>
 
 
-            </body>
-            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-            </script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
-            </script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
-            <script>
-                $('.carousel').carousel();
-                $('.select').selectpicker();
-            </script>
+    <script>
+        $('.carousel').carousel();
+        $('.select').selectpicker();
+    </script>
 
-            </html>
+    </html>

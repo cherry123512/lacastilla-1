@@ -32,7 +32,7 @@
                                         <div class="form-group">
                                             <input type="text"
                                                 class="form-control form-control-user  @error('last_name') is-invalid @enderror"
-                                                name="last_name" placeholder="{{ __('Name') }}" value="{{ old('last_name') }}"
+                                                name="last_name" placeholder="{{ __('Last Name') }}" value="{{ old('last_name') }}"
                                                 autofocus>
                                         </div>
 

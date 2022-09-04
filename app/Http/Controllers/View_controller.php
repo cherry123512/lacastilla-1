@@ -7,6 +7,7 @@ use App\Models\Carousel;
 use App\Models\Services;
 use App\Models\Schedule;
 use App\Models\About_us;
+use App\Models\User;
 use App\Models\Reservations;
 use App\Models\Reservation_details;
 use Illuminate\Http\Request;
@@ -16,13 +17,15 @@ class View_controller extends Controller
 {
     public function index()
     {
-        Auth::logout();
+        // Auth::logout();
         $carousel_first = Carousel::orderBy('id', 'desc')->where('status','!=','deactivated')->limit(1)->first();
         $carousel = Carousel::orderBy('id', 'desc')->where('status','!=','deactivated')->get();
 
         $services_first = Services::orderBy('id', 'desc')->limit(1)->first();
         $services = Services::orderBy('id', 'desc')->get();
         $about_us = About_us::latest()->first();
+
+        //return $user = User::find(auth()->user()->id);
         return view('welcome', [
             'carousel' => $carousel,
             'services_first' => $services_first,

@@ -78,20 +78,29 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item ">
+                    <a class="nav-link active" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('booking') }}">Book</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">Login</a>
-                </li>
-                <li class="nav-item">
-                    @if (Route::has('register'))
-                        <a class="nav-link" href="{{ route('register') }}">Register</a>
-                    @endif
-                </li>
+                @if (isset(auth()->user()->id))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('client_reservation') }}">Reservations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('logout') }}">Logout</a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        @if (Route::has('register'))
+                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                        @endif
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>
