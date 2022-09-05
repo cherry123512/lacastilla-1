@@ -18,7 +18,6 @@ class Inventory extends Model
         'length',
         'width',
         'weight',
-        'height',
         'diameter',
         'reference_number',
         'medium_and_material',

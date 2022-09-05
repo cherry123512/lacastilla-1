@@ -121,7 +121,7 @@
                                 <div class="form-group">
                                     <input type="text" min="0"
                                         class="form-control form-control-user  @error('length') is-invalid @enderror"
-                                        name="length" placeholder="{{ __('length') }}" value="{{ old('length') }}"
+                                        name="length" placeholder="{{ __('length/height') }}" value="{{ old('length') }}"
                                         autofocus>
 
                                     @error('length')
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            {{-- <div class="col-md-3">
                                 <div class="form-group">
                                     <input type="text" min="0"
                                         class="form-control form-control-user  @error('height') is-invalid @enderror"
@@ -145,7 +145,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-3">
                                 <div class="form-group">

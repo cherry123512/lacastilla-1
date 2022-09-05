@@ -43,10 +43,10 @@
                                     <th>location_of_object</th>
                                     <th>description_title</th>
                                     <th>number_of_pieces</th>
-                                    <th>length</th>
+                                    <th>length/height</th>
                                     <th>width</th>
                                     <th>weight</th>
-                                    <th>height</th>
+                                    {{-- <th>height</th> --}}
                                     <th>diameter</th>
                                     <th>medium_and_material</th>
                                     <th>maker_artist</th>
@@ -509,7 +509,7 @@
                                             </div>
 
                                         </td>
-                                        <td>
+                                        {{-- <td>
 
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-default btn-sm"
@@ -552,7 +552,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                         <td>
 
                                             <!-- Button trigger modal -->
