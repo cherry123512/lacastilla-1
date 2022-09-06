@@ -336,26 +336,33 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    {{-- <input type="text" min="0"
-                                        class="form-control form-control-user  @error('original_as_shown') is-invalid @enderror"
-                                        name="original_as_shown" placeholder="{{ __('Original as shown') }}"
-                                        value="{{ old('original_as_shown') }}" autofocus> --}}
                                     <div class="form-check">
-                                        <input class="form-check-input" name="original_as_shown" type="checkbox" value="original_as_shown"
-                                            id="flexCheckDefault">
+                                        <input class="form-check-input" name="original_as_shown" type="checkbox"
+                                            value="original_as_shown" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Original as shown
                                         </label>
                                     </div>
-                                    <br />
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="adapted_to_another_used" value="adapted_to_another_used" id="flexCheckDefault">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                          Adapted to another Used. Objects's Original Used
-                                        </label>
-                                      </div>
 
                                     @error('original_as_shown')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="adapted_to_another_used"
+                                            value="adapted_to_another_used" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Adapted to another Used. Objects's Original Used
+                                        </label>
+                                    </div>
+
+                                    @error('adapted_to_another_used')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -456,7 +463,7 @@
                                 </div>
                             </div>
 
-
+                            <br />
 
                             <div class="col-md-8">
                                 <textarea name="personal_story_of_this_object"
