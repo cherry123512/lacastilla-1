@@ -18,12 +18,15 @@ class View_controller extends Controller
     public function index()
     {
         // Auth::logout();
-        $carousel_first = Carousel::orderBy('id', 'desc')->where('status','!=','deactivated')->limit(1)->first();
-        $carousel = Carousel::orderBy('id', 'desc')->where('status','!=','deactivated')->get();
+        $carousel_first = Carousel::orderBy('id', 'desc')->where('status', '!=', 'deactivated')->limit(1)->first();
+        $carousel = Carousel::orderBy('id', 'desc')->where('status', '!=', 'deactivated')->get();
 
         $services_first = Services::orderBy('id', 'desc')->limit(1)->first();
         $services = Services::orderBy('id', 'desc')->get();
         $about_us = About_us::latest()->first();
+
+        $inventory_first = Inventory::orderBy('id', 'desc')->limit(1)->first();
+        $inventory = Inventory::get();
 
         //return $user = User::find(auth()->user()->id);
         return view('welcome', [
@@ -32,7 +35,23 @@ class View_controller extends Controller
             'services' => $services,
             'carousel_first' => $carousel_first,
             'about_us' => $about_us,
+            'inventory' => $inventory,
+            'inventory_first' => $inventory_first,
         ]);
+    }
+
+    public function view_about_us()
+    {
+        $carousel_first = Carousel::orderBy('id', 'desc')->where('status', '!=', 'deactivated')->limit(1)->first();
+        $carousel = Carousel::orderBy('id', 'desc')->where('status', '!=', 'deactivated')->get();
+        $about_us = About_us::latest()->first();
+
+        return view('view_about_us',[
+            'carousel_first' => $carousel_first,
+            'carousel' => $carousel,
+            'about_us' => $about_us,
+        ]);
+
     }
 
     public function booking()
@@ -52,8 +71,8 @@ class View_controller extends Controller
             'services' => 'required',
             'number_of_attending_persons' => 'required|numeric',
         ]);
-        
-    date_default_timezone_set('Asia/Manila');
+
+        date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d');
         $time = date('H:i:s a');
 
@@ -82,8 +101,7 @@ class View_controller extends Controller
             $details->save();
         }
 
-        return redirect('booking')->with('success','You have successfully requested for a reservation. Please wait for approval via email. Thank you');
-
+        return redirect('booking')->with('success', 'You have successfully requested for a reservation. Please wait for approval via email. Thank you');
     }
 
     public function logout()
@@ -95,8 +113,8 @@ class View_controller extends Controller
 
     public function client_reservation()
     {
-        $reservations = Reservations::where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
-        return view('client_reservation',[
+        $reservations = Reservations::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->get();
+        return view('client_reservation', [
             'reservations' => $reservations,
         ]);
     }

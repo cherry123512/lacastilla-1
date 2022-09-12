@@ -83,9 +83,18 @@
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('booking') }}">Book</a>
-                </li>
+                <div class="dropdown">
+                    <button style="color:white" class="btn btn-default dropdown-toggle" type="button"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Visit
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ url('view_about_us') }}">About Us</a>
+                        <a class="dropdown-item" href="#">Getting Here</a>
+                        <a class="dropdown-item" href="{{ url('booking') }}">Book</a>
+                        <a class="dropdown-item" href="#">Contact Us</a>
+                    </div>
+                </div>
                 @if (isset(auth()->user()->id))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('client_reservation') }}">Reservations</a>

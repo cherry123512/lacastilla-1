@@ -25,6 +25,9 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', 'View_controller@index')->name('home');
+Route::get('view_about_us', 'View_controller@view_about_us')->name('view_about_us');
+
+
 
 Route::get('booking', 'View_controller@booking')->name('booking');
 Route::post('booking_process', 'View_controller@booking_process')->name('booking_process');

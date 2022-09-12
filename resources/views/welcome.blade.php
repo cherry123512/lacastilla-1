@@ -82,9 +82,25 @@
                     <a class="nav-link active" href="{{ url('/') }}">Home <span
                             class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <div class="dropdown">
+                    <button style="color:white" class="btn btn-default dropdown-toggle" type="button"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Visit
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ url('view_about_us') }}">About Us</a>
+                        <a class="dropdown-item" href="#get_here">Getting Here</a>
+                        <a class="dropdown-item" href="{{ url('booking') }}">Book</a>
+                        <a class="dropdown-item" href="#contact_us">Contact Us</a>
+                    </div>
+                </div>
+                {{-- <li class="nav-item">
+                    <a class="nav-link active" href="{{ url('/') }}">Visit Us <span
+                            class="sr-only">(current)</span></a>
+                </li> --}}
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ url('booking') }}">Book</a>
-                </li>
+                </li> --}}
                 @if (isset(auth()->user()->id))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('client_reservation') }}">Reservations</a>
@@ -105,190 +121,173 @@
             </ul>
         </div>
     </nav>
-    <br />
-    <div class="content-fluid" style="margin-left:50px;margin-right:50px;">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card" style="width: 100%;height:100%;">
-                    <div class="card-header">About Us</div>
-                    <div class="card-body">
-                        <p style="text-align:justify">
-                            @if (isset($about_us))
-                                {{ $about_us->about_us }}
-                            @else
-                                No Data Yet
-                            @endif
-                        </p>
-                    </div>
-                </div>
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                @if ($carousel_first)
+                    <img class="d-block w-100" src="{{ asset('/storage/' . $carousel_first->image) }}"
+                        alt="First slide">
+                @else
+                    Carousel
+                @endif
             </div>
-            <div class="col-md-8">
-                <div class="card" style="width: 100%;">
+            @if ($carousel)
+                @foreach ($carousel as $data)
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="{{ asset('/storage/' . $data->image) }}" alt="Second slide">
+                    </div>
+                @endforeach
+            @endif
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Artifacts</div>
                     <div class="card-body">
-                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                        <div id="carouselExampleSlidesOnly1" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    @if ($carousel_first)
+                                    @if ($inventory_first)
                                         <img class="d-block w-100"
-                                            src="{{ asset('/storage/' . $carousel_first->image) }}" alt="First slide">
+                                            src="{{ asset('/storage/' . $inventory_first->inventory_image) }}"
+                                            alt="First slide">
                                     @else
-                                        Carousel
+                                        Inventory
                                     @endif
                                 </div>
-                                @if ($carousel)
-                                    @foreach ($carousel as $data)
+                                @if ($inventory)
+                                    @foreach ($inventory as $data)
                                         <div class="carousel-item">
-                                            <img class="d-block w-100" src="{{ asset('/storage/' . $data->image) }}"
+                                            <img class="d-block w-100"
+                                                src="{{ asset('/storage/' . $data->inventory_image) }}"
                                                 alt="Second slide">
                                         </div>
                                     @endforeach
                                 @endif
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">History</div>
+                    <div class="card-body" style="height:100%;">
+                        <p>
+                            What is Lorem Ipsum?
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                            galley of type and scrambled it to make a type specimen book. It has survived not only five
+                            centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                            passages, and more recently with desktop publishing software like Aldus PageMaker including
+                            versions of Lorem Ipsum.
+
+                            Why do we use it?
+                            It is a long established fact that a reader will be distracted by the readable content of a
+                            page when looking at its layout. The point of using Lorem Ipsum is that it has a
+                            more-or-less normal distribution of letters, as opposed to using 'Content here, content
+                            here', making it look like readable English. Many desktop publishing packages and web page
+                            editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will
+                            uncover many web sites still in their infancy. Various versions have evolved over the years,
+                            sometimes by accident, sometimes on purpose (injected humour and the like).
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
         <br />
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card" style="width: 100%;">
-                    <div class="card-body">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                @for ($i = 1; $i < count($services); $i++)
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ $i }}">
-                                    </li>
-                                @endfor
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    @if ($services_first)
-                                        <img class="d-block w-100"
-                                            src="{{ asset('upload_image/' . $services_first->service_image) }}"
-                                            alt="First slide">
-                                        <div class="carousel-caption d-none d-md-block">
-                                            <h5>{{ $services_first->title }}</h5>
-                                            <p>{{ $services_first->description }}</p>
-                                        </div>
-                                    @else
-                                        Carousel
-                                    @endif
 
-                                </div>
-                                @if ($services)
-                                    @foreach ($services as $data)
-                                        <div class="carousel-item">
-                                            <img class="d-block w-100"
-                                                src="{{ asset('upload_image/' . $data->service_image) }}"
-                                                alt="Second slide">
-
-                                            <div class="carousel-caption d-none d-md-block">
-                                                <h5>{{ $data->title }}</h5>
-                                                <p>{{ $data->description }}</p>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @endif
+        <div class="card" id="get_here">
+            <div class="card-header">How to get here</div>
+            <div class="card-body">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3946.114883223187!2d124.63775191056901!3d8.488209594155691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32fff32040628031%3A0xb45a2fa16068c47!2sLa%20Castilla!5e0!3m2!1sen!2sph!4v1662941671096!5m2!1sen!2sph"
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <br />
+        <div class="card" id="contact_us">
+            <div class="card-header">Contact Us</div>
+            <div class="card-body">
+                <form action="{{ route('message_submit') }}" method="post">
+                    @csrf
+                    <div class="row">
+                        @if (session('status'))
+                            <div class="alert alert-success border-left-success" role="alert">
+                                {{ session('status') }}
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                                data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                                data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
+                        @endif
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" min="0"
+                                    class="form-control form-control-user  @error('user_name') is-invalid @enderror"
+                                    name="user_name" placeholder="{{ __('Name') }}"
+                                    value="{{ old('user_name') }}" autofocus>
+
+                                @error('user_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" min="0"
+                                    class="form-control form-control-user  @error('email') is-invalid @enderror"
+                                    name="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}"
+                                    autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" min="0"
+                                    class="form-control form-control-user  @error('subject') is-invalid @enderror"
+                                    name="subject" placeholder="{{ __('Subject') }}" value="{{ old('subject') }}"
+                                    autofocus>
+
+                                @error('subject')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <textarea name="message" class="form-control @error('message') is-invalid @enderror" id="" cols="30"
+                                    rows="5">
+                                Message {{ old('message') }}
+                            </textarea>
+
+                                @error('message')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="float-right btn btn-sm"
+                                style="background:#8d221c;color:white">Submit</button>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card" style="width: 100%;">
-                    <div class="card-header">
-                        <h5 style="color:#8d221c" style="font-weight:bold;">Contact Us</h5>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{ route('message_submit') }}" method="post">
-                            @csrf
-                            <div class="row">
-                                @if (session('status'))
-                                    <div class="alert alert-success border-left-success" role="alert">
-                                        {{ session('status') }}
-                                    </div>
-                                @endif
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" min="0"
-                                            class="form-control form-control-user  @error('user_name') is-invalid @enderror"
-                                            name="user_name" placeholder="{{ __('Name') }}"
-                                            value="{{ old('user_name') }}" autofocus>
-
-                                        @error('user_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" min="0"
-                                            class="form-control form-control-user  @error('email') is-invalid @enderror"
-                                            name="email" placeholder="{{ __('Email') }}"
-                                            value="{{ old('email') }}" autofocus>
-
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" min="0"
-                                            class="form-control form-control-user  @error('subject') is-invalid @enderror"
-                                            name="subject" placeholder="{{ __('Subject') }}"
-                                            value="{{ old('subject') }}" autofocus>
-
-                                        @error('subject')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea name="message" class="form-control @error('message') is-invalid @enderror" id="" cols="30"
-                                            rows="5">
-                                        Message {{ old('message') }}
-                                    </textarea>
-
-                                        @error('message')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="float-right btn btn-sm"
-                                        style="background:#8d221c;color:white">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
-
-    <br /><br />
+    <br />
 
     <div class="fixed-bottom-sm" style="background:#8d221c">
         <p style="color:white;text-align:center">La-castilla@2022 All Rights Reserved.</p>
